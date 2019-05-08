@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dragon.Domain\Dragon.Domain.csproj" />
+    <ProjectReference Include="..\Dragon.Infrastructure\Dragon.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
