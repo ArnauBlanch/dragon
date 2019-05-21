@@ -1,9 +1,10 @@
 ﻿using Dragon.Application.Services.Contracts;
 using Dragon.Domain.Enums;
 using Dragon.Domain.Models;
-using Dragon.Infrastructure.Repository.Contracts;
+using Dragon.Domain.Repository;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Dragon.Application.Services.Implementations
 {
@@ -20,50 +21,36 @@ namespace Dragon.Application.Services.Implementations
             this.salesRepository = salesRepository;
         }
 
-        public Book Get(int isbn)
+        public async Task<Book> GetAsync(string shop, int isbn)
         {
-            var result = this.inventoryRepository.GetByISBN(isbn);
+            var result = await this.inventoryRepository.GetByISBNAsync(shop, isbn);
             return result;
         }
 
-        public IList<Book> GetAll()
+        public async Task<IList<Book>> GetAllAsync(string shop)
         {
-            var result = this.inventoryRepository.GetAll();
+            var result = await this.inventoryRepository.GetAllAsync(shop);
             return result;
         }
 
-        public OperationResult Sell(int isbn)
+        public async Task<Book> CreateAsync(string shop, Book book)
         {
-            var result = this.inventoryRepository.SellByISBN(isbn);
-
-            if (result == OperationResult.Done)
-            {
-                var sale = new Sale
-                {
-                    ISBN = isbn,
-                    Date = DateTime.UtcNow,
-                    Seller = "Arnau"
-                };
-
-                var inserted = this.salesRepository.Insert(sale);
-                if (!inserted)
-                    throw new Exception("Sale could not be inserted");
-            }
-
+            var result = await this.inventoryRepository.CreateAsync(shop, book);
             return result;
         }
 
-        public OperationResult UndoLastSell(int isbn)
+        public async Task<Book> UpdateAsync(string shop, Book book)
         {
-            var result = this.inventoryRepository.UndoLastSellByISBN(isbn);
+            var result = await this.inventoryRepository.UpdateAsync(shop, book);
+            return result;
+        }
 
-            if (result == OperationResult.Done)
-            {
-                var deleted = this.salesRepository.DeleteLastByISBN(isbn);
-                if (!deleted)
-                    throw new Exception("Sale could not be deleted");
-            }
+        public async Task<bool> DeleteAsync(string shop, int isbn)
+        {
+            var inventoryResult = await this.inventoryRepository.DeleteAsync(shop, isbn);
+            var salesResult = await this.salesRepository.DeleteAsync(shop, isbn);
 
+            var result = inventoryResult && salesResult;
             return result;
         }
     }
