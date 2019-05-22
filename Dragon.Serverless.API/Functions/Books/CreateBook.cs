@@ -39,6 +39,9 @@ namespace Dragon.Serverless.API.Functions.Books
                 return new BadRequestResult();
 
             var created = await this.bookAppService.CreateAsync(req.Query["shop"], book);
+            if (created == null)
+                return new ConflictResult();
+
             var result = this.bookMapper.Convert(created);
 
             return new CreatedResult("", result);

@@ -84,6 +84,10 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 
         public async Task<Book> CreateAsync(string shop, Book book)
         {
+            var retrieved = await this.RetrieveEntityAsync(shop, book.ISBN.ToString());
+            if (retrieved != null)
+                return null;
+
             var entity = this.inventoryItemEntityMapper.Convert(book, shop);
 
             var created = await this.InsertOrMergeEntityAsync(entity);

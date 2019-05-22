@@ -23,8 +23,9 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             this.logger = logger ?? throw new ArgumentNullException(nameof(configuration));
 
+            var tableName = $"{this.TableName}{configuration.EnvironmentSuffix}";
             this.CreateStorageAccount();
-            this.CreateTableAsync(this.TableName).Wait();
+            this.CreateTableAsync(tableName).Wait();
         }
 
         protected async Task<List<T>> RetrieveEntityListByPartitionKeyAsync(string partitionKey)
