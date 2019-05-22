@@ -32,3 +32,6 @@ msbuild.wrn
 .vs/
 /Dragon.API/client_secret.json
 /Dragon.API/token.json
+/Dragon.Serverless.API/local.settings.dev.json
+/Dragon.Serverless.API.IntegrationTests/.runsettings-func
+/Dragon.Serverless.API.IntegrationTests/.runsettings
