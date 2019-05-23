@@ -9,6 +9,8 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
     {
         private readonly string shopName = TestContext.Parameters["ShopName"];
         private readonly string baseUrl = TestContext.Parameters["ApiBaseUrl"];
+        private readonly string authHeader = TestContext.Parameters["AuthHeader"];
+        private readonly string apiKey = TestContext.Parameters["ApiKey"];
         private readonly string endpoint = TestContext.Parameters["GetBookEndpoint"];
 
         private RestClient restClient;
@@ -43,6 +45,9 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         {
             var resource = string.Format(this.endpoint, shop, isbn);
             var result = new RestRequest(resource, Method.GET, DataFormat.Json);
+            
+            if (!string.IsNullOrWhiteSpace(authHeader))
+                result.AddHeader(authHeader, apiKey);
 
             return result;
         }

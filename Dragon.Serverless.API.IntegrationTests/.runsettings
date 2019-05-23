@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <RunSettings>
   <TestRunParameters>
-    <Parameter name="ApiBaseUrl" value="" />
-    <Parameter name="ShopName" value="" />
+    <Parameter name="ApiBaseUrl" value="http://localhost:7071/api" />
+    <Parameter name="ShopName" value="TestShop" />
+    <Parameter name="AuthHeader" value="" />
+    <Parameter name="ApiKey" value="" />
 
     <Parameter name="GetAllBooksEndpoint" value="/GetAllBooks?shop={0}" />
     <Parameter name="CreateBookEndpoint" value="/CreateBook?shop={0}" />
