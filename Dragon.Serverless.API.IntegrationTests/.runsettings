@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <TestRunParameters>
+    <Parameter name="ApiBaseUrl" value="" />
+    <Parameter name="ShopName" value="" />
+
+    <Parameter name="GetAllBooksEndpoint" value="/GetAllBooks?shop={0}" />
+    <Parameter name="CreateBookEndpoint" value="/CreateBook?shop={0}" />
+    <Parameter name="GetBookEndpoint" value="/GetBookByISBN?shop={0}&amp;isbn={1}" />
+    <Parameter name="UpdateBookEndpoint" value="/UpdateBook?shop={0}&amp;isbn={1}" />
+    <Parameter name="DeleteBookEndpoint" value="/DeleteBook?shop={0}&amp;isbn={1}" />
+
+    <Parameter name="GetAllSales" value="/GetAllSales?shop={0}" />
+    <Parameter name="GetBookSales" value="/GetBookSales?shop={0}&amp;isbn={1}" />
+    <Parameter name="SellBook" value="/SellBook?shop={0}&amp;isbn={1}" />
+    <Parameter name="UnsellBook" value="/UnsellBook?shop={0}&amp;isbn={1}&amp;date={2}" />
+  </TestRunParameters>
+</RunSettings>
