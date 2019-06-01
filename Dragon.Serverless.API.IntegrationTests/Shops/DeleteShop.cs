@@ -25,7 +25,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test, Order(2)]
-        public void When_ShopDeleted_ReturnsNoContent()
+        public void DeleteShop_When_ShopDeleted_ReturnsNoContent()
         {
             var id = this.GetTestShop();
 
@@ -36,7 +36,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_BookDoesNotExist_ReturnsNotFound()
+        public void DeleteShop_When_BookDoesNotExist_ReturnsNotFound()
         {
             var request = ShopRequestHelper.DeleteShop(UNEXISTING_SHOP);
             var response = this.restClient.Execute<ShopResponse>(request);

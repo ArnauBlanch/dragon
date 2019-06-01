@@ -24,7 +24,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookDeleted_ReturnsNoContent()
+        public void DeleteBook_When_BookDeleted_ReturnsNoContent()
         {
             var isbn = this.InsertBook();
 
@@ -36,7 +36,17 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookDoesNotExist_ReturnsNotFound()
+        public void DeleteBook_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var request = BookRequestHelper.DeleteBook("UnexistingShop", 100);
+
+            var response = this.restClient.Execute<BookResponse>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void DeleteBook_When_BookDoesNotExist_ReturnsNotFound()
         {
             var request = BookRequestHelper.DeleteBook(shopName, UNEXISTING_BOOK);
             var response = this.restClient.Execute<BookResponse>(request);

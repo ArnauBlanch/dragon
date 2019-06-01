@@ -24,7 +24,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_NewBookCreated_ReturnsCreated()
+        public void CreateBook_When_NewBookCreated_ReturnsCreated()
         {
             var isbn = new Random().Next();
             var newBook = new BookRequest
@@ -50,7 +50,30 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookAlreadyExists_ReturnsConflict()
+        public void CreateBook_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var isbn = new Random().Next();
+            var newBook = new BookRequest
+            {
+                ISBN = isbn,
+                Title = $"Random Book {isbn}",
+                Author = "Random Author",
+                Publisher = "Random Publisher",
+                CoverUrl = "Random CoverUrl",
+                Price = 10,
+                ReducedPrice = 5,
+                AvailableCopies = 5,
+                TotalCopies = 5
+            };
+
+            var request = BookRequestHelper.CreateBook("UnexistingShop", newBook);
+            var response = this.restClient.Execute<BookResponse>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void CreateBook_When_BookAlreadyExists_ReturnsConflict()
         {
             var newBook = new BookRequest
             {
@@ -72,7 +95,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_NoBookSent_ReturnsBadRequest()
+        public void CreateBook_When_NoBookSent_ReturnsBadRequest()
         {
             var request = BookRequestHelper.CreateBook(shopName, null);
             var response = this.restClient.Execute<BookResponse>(request);

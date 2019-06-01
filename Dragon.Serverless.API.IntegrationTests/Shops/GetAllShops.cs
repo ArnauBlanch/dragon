@@ -20,7 +20,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_ThereAreShops_Returns200()
+        public void GetAllShops_When_ThereAreShops_Returns200()
         {
             var request = ShopRequestHelper.GetAllShops();
             var response = this.restClient.Execute<List<ShopResponse>>(request);

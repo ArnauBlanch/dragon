@@ -23,7 +23,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookExists_Returns200()
+        public void GetBook_When_BookExists_Returns200()
         {
             var request = BookRequestHelper.GetBook(shopName, EXISTING_BOOK);
             var response = this.restClient.Execute<BookResponse>(request);
@@ -34,7 +34,16 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookDoesntExist_Returns404()
+        public void GetBook_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var request = BookRequestHelper.GetBook("UnexistingShop", EXISTING_BOOK);
+            var response = this.restClient.Execute<BookResponse>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void GetBook__When_BookDoesntExist_Returns404()
         {
             var request = BookRequestHelper.GetBook(shopName, UNEXISTING_BOOK);
             var response = this.restClient.Execute(request);

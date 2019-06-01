@@ -23,7 +23,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test, Order(1)]
-        public void When_NewShopCreated_ReturnsCreated()
+        public void CreateShop_When_NewShopCreated_ReturnsCreated()
         {
             var id = new Random().Next();
             var newShop = new ShopRequest
@@ -43,7 +43,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_ShopAlreadyExists_ReturnsConflict()
+        public void CreateShop_When_ShopAlreadyExists_ReturnsConflict()
         {
             var newShop = new ShopRequest
             {
@@ -59,7 +59,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_NoShopSent_ReturnsBadRequest()
+        public void CreateShop_When_NoShopSent_ReturnsBadRequest()
         {
             var request = ShopRequestHelper.CreateShop(null);
             var response = this.restClient.Execute<ShopResponse>(request);

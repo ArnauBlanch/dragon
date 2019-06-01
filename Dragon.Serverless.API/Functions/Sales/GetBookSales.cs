@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Dragon.Application.Services.Contracts;
 using Dragon.Serverless.API.Mappers.Contracts;
 using System.Linq;
@@ -26,9 +25,7 @@ namespace Dragon.Serverless.API.Functions.Sales
 
         [FunctionName("GetBookSales")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
-            ILogger log,
-            ExecutionContext context)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
         {
             if (!int.TryParse(req.Query["isbn"], out int isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();

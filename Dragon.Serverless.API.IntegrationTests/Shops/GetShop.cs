@@ -22,7 +22,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_ShopExists_Returns200()
+        public void GetShop_When_ShopExists_Returns200()
         {
             var request = ShopRequestHelper.GetShop(EXISTING_SHOP);
             var response = this.restClient.Execute<ShopResponse>(request);
@@ -33,7 +33,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_BookDoesntExist_Returns404()
+        public void GetShop_When_BookDoesntExist_Returns404()
         {
             var request = ShopRequestHelper.GetShop(UNEXISTING_SHOP);
             var response = this.restClient.Execute(request);

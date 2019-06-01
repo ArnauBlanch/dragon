@@ -21,7 +21,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_ThereAreSales_ReturnsOk()
+        public void GetAllSales_When_ThereAreSales_ReturnsOk()
         {
             var request = SaleRequestHelper.GetAllSales(shopName);
             var response = this.restClient.Execute<List<SaleResponse>>(request);
@@ -32,7 +32,16 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_ThereAreNoSales_ReturnsNotFound()
+        public void GetAllSales_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var request = SaleRequestHelper.GetAllSales("UnexistingShop");
+            var response = this.restClient.Execute<List<SaleResponse>>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void GetAllSales_When_ThereAreNoSales_ReturnsOK()
         {
             var request = SaleRequestHelper.GetAllSales("EmptyShop");
             var response = this.restClient.Execute<List<SaleResponse>>(request);
