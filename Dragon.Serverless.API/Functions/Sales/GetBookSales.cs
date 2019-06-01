@@ -6,16 +6,22 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Dragon.Application.Services.Contracts;
+using Dragon.Serverless.API.Mappers.Contracts;
+using System.Linq;
 
 namespace Dragon.Serverless.API.Functions.Sales
 {
     public class GetBookSales
     {
         private readonly ISaleAppService saleAppService;
+        private readonly ISaleMapper saleMapper;
 
-        public GetBookSales(ISaleAppService saleAppService)
+        public GetBookSales(
+            ISaleAppService saleAppService,
+            ISaleMapper saleMapper)
         {
             this.saleAppService = saleAppService ?? throw new ArgumentNullException(nameof(saleAppService));
+            this.saleMapper = saleMapper ?? throw new ArgumentNullException(nameof(saleMapper));
         }
 
         [FunctionName("GetBookSales")]
@@ -27,7 +33,11 @@ namespace Dragon.Serverless.API.Functions.Sales
             if (!int.TryParse(req.Query["isbn"], out int isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
 
-            var result = await this.saleAppService.GetByISBNAsync(req.Query["shop"], isbn);
+            var sales = await this.saleAppService.GetByISBNAsync(req.Query["shop"], isbn);
+            if (sales == null)
+                return new NotFoundResult();
+
+            var result = sales.Select(x => this.saleMapper.Convert(x));
 
             return new OkObjectResult(result);
         }

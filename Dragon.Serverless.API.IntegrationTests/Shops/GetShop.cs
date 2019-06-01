@@ -4,15 +4,14 @@ using NUnit.Framework;
 using RestSharp;
 using System.Net;
 
-namespace Dragon.Serverless.API.IntegrationTests.Books
+namespace Dragon.Serverless.API.IntegrationTests.Shops
 {
-    public class GetBook
+    public class GetShop
     {
         private readonly string baseUrl = TestContext.Parameters["ApiBaseUrl"];
-        private readonly string shopName = TestContext.Parameters["ShopName"];
+        private const string EXISTING_SHOP = "ExistingShop";
+        private const string UNEXISTING_SHOP = "UnexistingShop";
 
-        private const int EXISTING_BOOK = 100;
-        private const int UNEXISTING_BOOK = 99999;
 
         private RestClient restClient;
 
@@ -23,20 +22,20 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookExists_Returns200()
+        public void When_ShopExists_Returns200()
         {
-            var request = BookRequestHelper.GetBook(shopName, EXISTING_BOOK);
-            var response = this.restClient.Execute<BookResponse>(request);
+            var request = ShopRequestHelper.GetShop(EXISTING_SHOP);
+            var response = this.restClient.Execute<ShopResponse>(request);
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(response.Data);
-            Assert.AreEqual(EXISTING_BOOK, response.Data.ISBN);
+            Assert.AreEqual(EXISTING_SHOP, response.Data.Id);
         }
 
         [Test]
         public void When_BookDoesntExist_Returns404()
         {
-            var request = BookRequestHelper.GetBook(shopName, UNEXISTING_BOOK);
+            var request = ShopRequestHelper.GetShop(UNEXISTING_SHOP);
             var response = this.restClient.Execute(request);
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);

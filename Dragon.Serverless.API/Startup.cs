@@ -20,16 +20,21 @@ namespace Dragon.Serverless.API
         public override void Configure(IFunctionsHostBuilder builder)
         {
             builder.Services.AddSingleton<IBookMapper, BookMapper>();
+            builder.Services.AddSingleton<ISaleMapper, SaleMapper>();
+            builder.Services.AddSingleton<IShopMapper, ShopMapper>();
             builder.Services.AddSingleton<IInventoryItemEntityMapper, InventoryItemEntityMapper>();
             builder.Services.AddSingleton<ISaleEntityMapper, SaleEntityMapper>();
+            builder.Services.AddSingleton<IShopEntityMapper, ShopEntityMapper>();
 
             builder.Services.AddSingleton<IAppConfiguration, AppConfiguration>();
 
             builder.Services.AddSingleton<IBookAppService, BookAppService>();
             builder.Services.AddSingleton<ISaleAppService, SaleAppService>();
+            builder.Services.AddSingleton<IShopAppService, ShopAppService>();
 
             builder.Services.AddSingleton<IInventoryRepository, InventoryRepository>();
-            builder.Services.AddSingleton<ISalesRepository, SalesRepository>();
+            builder.Services.AddSingleton<ISaleRepository, SaleRepository>();
+            builder.Services.AddSingleton<IShopRepository, ShopRepository>();
 
         }
     }

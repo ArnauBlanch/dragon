@@ -21,7 +21,7 @@ namespace Dragon.Serverless.API.Functions.Sales
 
         [FunctionName("UnsellBook")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "delete", Route = null)] HttpRequest req,
             ILogger log)
         {
             if (!int.TryParse(req.Query["isbn"], out int isbn)

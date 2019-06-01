@@ -27,7 +27,7 @@ namespace Dragon.Serverless.API.Functions.Sales
             if (!int.TryParse(req.Query["isbn"], out int isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
 
-            var result = await this.saleAppService.CreateAsync(req.Query["shop"], isbn);
+            var result = await this.saleAppService.CreateAsync(req.Query["shop"], isbn, req.Query["seller"]);
 
             switch (result)
             {

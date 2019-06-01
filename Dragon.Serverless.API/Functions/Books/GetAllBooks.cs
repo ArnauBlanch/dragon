@@ -6,16 +6,22 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Dragon.Application.Services.Contracts;
+using Dragon.Serverless.API.Mappers.Contracts;
+using System.Linq;
 
 namespace Dragon.Serverless.API.Functions.Books
 {
     public class GetAllBooks
     {
         private readonly IBookAppService bookAppService;
+        private readonly IBookMapper bookMapper;
 
-        public GetAllBooks(IBookAppService bookAppService)
+        public GetAllBooks(
+            IBookAppService bookAppService,
+            IBookMapper bookMapper)
         {
             this.bookAppService = bookAppService ?? throw new ArgumentNullException(nameof(bookAppService));
+            this.bookMapper = bookMapper ?? throw new ArgumentNullException(nameof(bookMapper));
         }
 
         [FunctionName("GetAllBooks")]
@@ -27,7 +33,9 @@ namespace Dragon.Serverless.API.Functions.Books
             if (string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
 
-            var result = await this.bookAppService.GetAllAsync(req.Query["shop"]);
+            var books = await this.bookAppService.GetAllAsync(req.Query["shop"]);
+
+            var result = books.Select(x => this.bookMapper.Convert(x));
 
             return new OkObjectResult(result);
         }

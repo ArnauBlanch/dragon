@@ -1,5 +1,4 @@
 ﻿using Dragon.Application.Services.Contracts;
-using Dragon.Domain.Enums;
 using Dragon.Domain.Models;
 using Dragon.Domain.Repository;
 using System;
@@ -11,14 +10,14 @@ namespace Dragon.Application.Services.Implementations
     public class BookAppService : IBookAppService
     {
         private readonly IInventoryRepository inventoryRepository;
-        private readonly ISalesRepository salesRepository;
+        private readonly ISaleRepository salesRepository;
 
         public BookAppService(
             IInventoryRepository inventoryRepository,
-            ISalesRepository salesRepository)
+            ISaleRepository salesRepository)
         {
-            this.inventoryRepository = inventoryRepository;
-            this.salesRepository = salesRepository;
+            this.inventoryRepository = inventoryRepository ?? throw new ArgumentNullException(nameof(inventoryRepository));
+            this.salesRepository = salesRepository ?? throw new ArgumentNullException(nameof(salesRepository));
         }
 
         public async Task<Book> GetAsync(string shop, int isbn)
@@ -35,7 +34,7 @@ namespace Dragon.Application.Services.Implementations
 
         public async Task<Book> CreateAsync(string shop, Book book)
         {
-            var result = await this.inventoryRepository.CreateAsync(shop, book);
+            var result = await this.inventoryRepository.InsertAsync(shop, book);
             return result;
         }
 

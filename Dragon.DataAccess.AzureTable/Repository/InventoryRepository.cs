@@ -82,7 +82,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             }
         }
 
-        public async Task<Book> CreateAsync(string shop, Book book)
+        public async Task<Book> InsertAsync(string shop, Book book)
         {
             var retrieved = await this.RetrieveEntityAsync(shop, book.ISBN.ToString());
             if (retrieved != null)
@@ -117,6 +117,18 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
                 return false;
 
             await this.DeleteEntityAsync(retrieved);
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(string shop)
+        {
+            var entities = await this.RetrieveEntityWherePartitionKeyStartWithAsync($"{shop}_");
+
+            foreach (var entity in entities)
+            {
+                await this.DeleteEntityAsync(entity);
+            }
+
             return true;
         }
     }

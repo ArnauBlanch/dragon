@@ -11,16 +11,16 @@ namespace Dragon.Application.Services.Implementations
     public class SaleAppService : ISaleAppService
     {
         private readonly IInventoryRepository inventoryRepository;
-        private readonly ISalesRepository salesRepository;
+        private readonly ISaleRepository salesRepository;
         public SaleAppService(
             IInventoryRepository inventoryRepository,
-            ISalesRepository salesRepository)
+            ISaleRepository salesRepository)
         {
-            this.inventoryRepository = inventoryRepository;
-            this.salesRepository = salesRepository;
+            this.inventoryRepository = inventoryRepository ?? throw new ArgumentNullException(nameof(inventoryRepository));
+            this.salesRepository = salesRepository ?? throw new ArgumentNullException(nameof(salesRepository));
         }
 
-        public async Task<OperationResult> CreateAsync(string shop, int isbn)
+        public async Task<OperationResult> CreateAsync(string shop, int isbn, string seller)
         {
             var inventoryResult = await this.inventoryRepository.SellByISBNAsync(shop, isbn);
 
@@ -30,7 +30,7 @@ namespace Dragon.Application.Services.Implementations
                 {
                     ISBN = isbn,
                     Date = DateTime.UtcNow,
-                    Seller = "Arnau"
+                    Seller = seller
                 };
 
                 var inserted = await this.salesRepository.InsertAsync(shop, sale);
@@ -67,6 +67,10 @@ namespace Dragon.Application.Services.Implementations
 
         public async Task<IList<Sale>> GetByISBNAsync(string shop, int isbn)
         {
+            var book = await this.inventoryRepository.GetByISBNAsync(shop, isbn);
+            if (book == null)
+                return null;
+
             var result = await this.salesRepository.GetByISBNAsync(shop, isbn);
             return result;
         }

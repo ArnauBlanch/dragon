@@ -9,7 +9,7 @@ namespace Dragon.Application.Services.Contracts
     {
         Task<IList<Sale>> GetAllAsync(string shop);
         Task<IList<Sale>> GetByISBNAsync(string shop, int isbn);
-        Task<OperationResult> CreateAsync(string shop, int isbn);
+        Task<OperationResult> CreateAsync(string shop, int isbn, string seller);
         Task<OperationResult> DeleteAsync(string shop, int isbn, string date);
 
     }
