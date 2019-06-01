@@ -22,13 +22,13 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
             this.restClient = new RestClient(this.baseUrl);
         }
 
-        [Test]
+        [Test, Order(1)]
         public void When_NewShopCreated_ReturnsCreated()
         {
             var id = new Random().Next();
             var newShop = new ShopRequest
             {
-                Id = $"shop{id}",
+                Id = $"shop_{id}",
                 Name = "Shop name",
                 Description = "Shop description"
             };

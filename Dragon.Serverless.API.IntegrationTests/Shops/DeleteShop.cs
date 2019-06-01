@@ -5,6 +5,8 @@ using NUnit.Framework;
 using RestSharp;
 using System;
 using System.Net;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Dragon.Serverless.API.IntegrationTests.Shops
 {
@@ -22,10 +24,10 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
             this.restClient = new RestClient(this.baseUrl);
         }
 
-        [Test]
+        [Test, Order(2)]
         public void When_ShopDeleted_ReturnsNoContent()
         {
-            var id = this.InsertShop();
+            var id = this.GetTestShop();
 
             var request = ShopRequestHelper.DeleteShop(id);
             var response = this.restClient.Execute<ShopResponse>(request);
@@ -42,19 +44,14 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        private string InsertShop()
+        private string GetTestShop()
         {
             var id = new Random().Next();
-            var newShop = new ShopRequest
-            {
-                Id = $"shop{id}",
-                Name = "Name",
-                Description = "Description"
-            };
 
-            var request = ShopRequestHelper.CreateShop(newShop);
-            var response = this.restClient.Execute<ShopResponse>(request);
-            return response.Data.Id;
+            var request = ShopRequestHelper.GetAllShops();
+            var response = this.restClient.Execute<List<ShopResponse>>(request);
+            var testShop = response.Data.First(x => x.Id.StartsWith("shop_"));
+            return testShop.Id;
         }
     }
 }
