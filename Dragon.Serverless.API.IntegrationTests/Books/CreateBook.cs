@@ -13,7 +13,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         private readonly string baseUrl = TestContext.Parameters["ApiBaseUrl"];
         private readonly string shopName = TestContext.Parameters["ShopName"];
 
-        private const int EXISTING_BOOK = 100;
+        private const long EXISTING_BOOK = 100;
 
         private RestClient restClient;
 

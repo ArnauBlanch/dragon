@@ -28,15 +28,14 @@ namespace Dragon.Serverless.API.Functions.Books
 
         [FunctionName("UpdateBook")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "put", Route = null)] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "put", Route = null)] HttpRequest req)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<BookRequest>(requestBody);
             var book = this.bookMapper.Convert(data);
 
             if (string.IsNullOrWhiteSpace(req.Query["shop"])
-                || !int.TryParse(req.Query["isbn"], out int isbn)
+                || !long.TryParse(req.Query["isbn"], out long isbn)
                 || book == null
                 || book.ISBN != isbn)
                 return new BadRequestResult();

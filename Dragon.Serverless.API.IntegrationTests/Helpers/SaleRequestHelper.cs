@@ -23,7 +23,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
             return request;
         }
 
-        public static IRestRequest GetBookSales(string shop, int isbn)
+        public static IRestRequest GetBookSales(string shop, long isbn)
         {
             var resource = string.Format(getBookSalesEndpoint, shop, isbn);
             var request = new RestRequest(resource, Method.GET, DataFormat.Json)
@@ -32,7 +32,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
             return request;
         }
 
-        public static IRestRequest SellBook(string shop, int isbn, string seller)
+        public static IRestRequest SellBook(string shop, long isbn, string seller)
         {
             var resource = string.IsNullOrEmpty(seller) ?
                 string.Format(sellBookWithoutSellerEndpoint, shop, isbn) :
@@ -43,7 +43,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
             return request;
         }
 
-        public static IRestRequest UnsellBook(string shop, int isbn, string date)
+        public static IRestRequest UnsellBook(string shop, long isbn, string date)
         {
             var resource = string.Format(unsellBookEndpoint, shop, isbn, date);
             var request = new RestRequest(resource, Method.DELETE, DataFormat.Json)

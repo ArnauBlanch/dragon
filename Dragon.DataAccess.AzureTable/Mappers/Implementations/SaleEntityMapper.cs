@@ -13,7 +13,7 @@ namespace Dragon.DataAccess.AzureTable.Mappers.Implementations
                 return null;
 
             var partitionKey = source.PartitionKey.Split('_');
-            if (partitionKey.Length != 2 || !int.TryParse(partitionKey[1], out int isbn)
+            if (partitionKey.Length != 2 || !long.TryParse(partitionKey[1], out long isbn)
                 || !DateTime.TryParse(source.RowKey, out DateTime date))
                 return null;
 

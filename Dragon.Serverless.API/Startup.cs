@@ -22,9 +22,10 @@ namespace Dragon.Serverless.API
             builder.Services.AddSingleton<IBookMapper, BookMapper>();
             builder.Services.AddSingleton<ISaleMapper, SaleMapper>();
             builder.Services.AddSingleton<IShopMapper, ShopMapper>();
-            builder.Services.AddSingleton<IInventoryItemEntityMapper, InventoryItemEntityMapper>();
+            builder.Services.AddSingleton<IBookEntityMapper, InventoryItemEntityMapper>();
             builder.Services.AddSingleton<ISaleEntityMapper, SaleEntityMapper>();
             builder.Services.AddSingleton<IShopEntityMapper, ShopEntityMapper>();
+            builder.Services.AddSingleton<IInventoryExcelMapper, InventoryExcelMapper>();
 
             builder.Services.AddSingleton<IAppConfiguration, AppConfiguration>();
 
@@ -32,7 +33,7 @@ namespace Dragon.Serverless.API
             builder.Services.AddSingleton<ISaleAppService, SaleAppService>();
             builder.Services.AddSingleton<IShopAppService, ShopAppService>();
 
-            builder.Services.AddSingleton<IInventoryRepository, InventoryRepository>();
+            builder.Services.AddSingleton<IBookRepository, BookInventory>();
             builder.Services.AddSingleton<ISaleRepository, SaleRepository>();
             builder.Services.AddSingleton<IShopRepository, ShopRepository>();
 

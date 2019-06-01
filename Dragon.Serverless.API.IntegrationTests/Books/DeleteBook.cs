@@ -13,7 +13,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         private readonly string baseUrl = TestContext.Parameters["ApiBaseUrl"];
         private readonly string shopName = TestContext.Parameters["ShopName"];
 
-        private const int UNEXISTING_BOOK = 99999;
+        private const long UNEXISTING_BOOK = 99999;
 
         private RestClient restClient;
 
@@ -54,7 +54,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        private int InsertBook()
+        private long InsertBook()
         {
             var isbn = new Random().Next();
             var newBook = new BookRequest

@@ -4,11 +4,11 @@ using Dragon.DataAccess.Mappers.Contracts;
 
 namespace Dragon.DataAccess.Mappers.Implementations
 {
-    public class InventoryItemEntityMapper : IInventoryItemEntityMapper
+    public class InventoryItemEntityMapper : IBookEntityMapper
     {
-        public Book Convert(InventoryItemEntity source)
+        public Book Convert(BookEntity source)
         {
-            if (source == null || !int.TryParse(source.RowKey, out int isbn))
+            if (source == null || !long.TryParse(source.RowKey, out long isbn))
                 return null;
 
             var result = new Book
@@ -16,6 +16,7 @@ namespace Dragon.DataAccess.Mappers.Implementations
                 ISBN = isbn,
                 Title = source.Title,
                 Author = source.Author,
+                Category = source.Category,
                 CoverUrl = source.CoverUrl,
                 Publisher = source.Publisher,
                 Price = (float) source.Price,
@@ -27,17 +28,18 @@ namespace Dragon.DataAccess.Mappers.Implementations
             return result;
         }
 
-        public InventoryItemEntity Convert(Book source, string shop)
+        public BookEntity Convert(Book source, string shop)
         {
             if (source == null)
                 return null;
 
-            var result = new InventoryItemEntity
+            var result = new BookEntity
             {
                 PartitionKey = shop,
                 RowKey = source.ISBN.ToString(),
                 Title = source.Title,
                 Author = source.Author,
+                Category = source.Category,
                 CoverUrl = source.CoverUrl,
                 Publisher = source.Publisher,
                 Price = source.Price,

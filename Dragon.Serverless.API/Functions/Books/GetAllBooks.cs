@@ -29,9 +29,7 @@ namespace Dragon.Serverless.API.Functions.Books
 
         [FunctionName("GetAllBooks")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
-            ILogger log,
-            ExecutionContext context)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
         {
             if (string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();

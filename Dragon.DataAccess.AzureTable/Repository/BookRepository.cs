@@ -12,38 +12,38 @@ using System.Linq;
 
 namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 {
-    public class InventoryRepository : AzureTableRepository<InventoryItemEntity>, IInventoryRepository
+    public class BookInventory : AzureTableRepository<BookEntity>, IBookRepository
     {
-        private readonly IInventoryItemEntityMapper inventoryItemEntityMapper;
+        private readonly IBookEntityMapper bookEntityMapper;
 
         protected override string TableName => "BookInventory";
 
-        public InventoryRepository(
-            IInventoryItemEntityMapper inventoryItemEntityMapper,
+        public BookInventory(
+            IBookEntityMapper bookEntityMapper,
             IAppConfiguration configuration,
-            ILogger<AzureTableRepository<InventoryItemEntity>> logger)
+            ILogger<AzureTableRepository<BookEntity>> logger)
             : base(configuration, logger)
         {
-            this.inventoryItemEntityMapper = inventoryItemEntityMapper ?? throw new ArgumentNullException(nameof(inventoryItemEntityMapper));
+            this.bookEntityMapper = bookEntityMapper ?? throw new ArgumentNullException(nameof(bookEntityMapper));
         }
 
         public async Task<List<Book>> GetAllAsync(string shop)
         {
             var retrieved = await this.RetrieveEntityListByPartitionKeyAsync(shop);
-            var result = retrieved.Select(x => this.inventoryItemEntityMapper.Convert(x)).ToList();
+            var result = retrieved.Select(x => this.bookEntityMapper.Convert(x)).ToList();
 
             return result;
         }
 
-        public async Task<Book> GetByISBNAsync(string shop, int isbn)
+        public async Task<Book> GetByISBNAsync(string shop, long isbn)
         {
             var retrieved = await this.RetrieveEntityAsync(shop, isbn.ToString());
-            var result = this.inventoryItemEntityMapper.Convert(retrieved);
+            var result = this.bookEntityMapper.Convert(retrieved);
 
             return result;
         }
 
-        public async Task<OperationResult> SellByISBNAsync(string shop, int isbn)
+        public async Task<OperationResult> SellByISBNAsync(string shop, long isbn)
         {
             var retrieved = await this.RetrieveEntityAsync(shop, isbn.ToString());
             if (retrieved == null)
@@ -63,7 +63,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 
         }
 
-        public async Task<OperationResult> UnsellByISBNAsync(string shop, int isbn)
+        public async Task<OperationResult> UnsellByISBNAsync(string shop, long isbn)
         {
             var retrieved = await this.RetrieveEntityAsync(shop, isbn.ToString());
             if (retrieved == null)
@@ -88,10 +88,10 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             if (retrieved != null)
                 return null;
 
-            var entity = this.inventoryItemEntityMapper.Convert(book, shop);
+            var entity = this.bookEntityMapper.Convert(book, shop);
 
             var created = await this.InsertOrMergeEntityAsync(entity);
-            var result = this.inventoryItemEntityMapper.Convert(created);
+            var result = this.bookEntityMapper.Convert(created);
 
             return result;
         }
@@ -102,15 +102,15 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             if (retrieved == null)
                 return null;
 
-            var entity = this.inventoryItemEntityMapper.Convert(book, shop);
+            var entity = this.bookEntityMapper.Convert(book, shop);
 
             var updated = await this.InsertOrMergeEntityAsync(entity);
-            var result = this.inventoryItemEntityMapper.Convert(updated);
+            var result = this.bookEntityMapper.Convert(updated);
 
             return result;
         }
 
-        public async Task<bool> DeleteAsync(string shop, int isbn)
+        public async Task<bool> DeleteAsync(string shop, long isbn)
         {
             var retrieved = await this.RetrieveEntityAsync(shop, isbn.ToString());
             if (retrieved == null)
@@ -122,7 +122,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 
         public async Task<bool> DeleteAsync(string shop)
         {
-            var entities = await this.RetrieveEntityWherePartitionKeyStartWithAsync($"{shop}_");
+            var entities = await this.RetrieveEntityListByPartitionKeyAsync(shop);
 
             foreach (var entity in entities)
             {

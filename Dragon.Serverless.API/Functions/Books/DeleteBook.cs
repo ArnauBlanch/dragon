@@ -23,7 +23,7 @@ namespace Dragon.Serverless.API.Functions.Books
             [HttpTrigger(AuthorizationLevel.Function, "delete", Route = null)] HttpRequest req,
             ILogger log)
         {
-            if (!int.TryParse(req.Query["isbn"], out int isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
+            if (!long.TryParse(req.Query["isbn"], out long isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
 
             var result = await this.bookAppService.DeleteAsync(req.Query["shop"], isbn);

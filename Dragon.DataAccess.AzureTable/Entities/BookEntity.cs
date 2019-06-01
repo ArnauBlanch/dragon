@@ -2,10 +2,11 @@
 
 namespace Dragon.DataAccess.Entities
 {
-    public class InventoryItemEntity : TableEntity
+    public class BookEntity : TableEntity
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public string Category { get; set; }
         public string CoverUrl { get; set; }
         public string Publisher { get; set; }
         public double Price { get; set; }
