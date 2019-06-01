@@ -1,3 +1,4 @@
+using Dragon.Serverless.API.IntegrationTests.Helpers;
 using Dragon.Serverless.API.Models.Request;
 using Dragon.Serverless.API.Models.Response;
 using NUnit.Framework;
@@ -9,11 +10,10 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
 {
     public class CreateBook
     {
-        private readonly string shopName = TestContext.Parameters["ShopName"];
         private readonly string baseUrl = TestContext.Parameters["ApiBaseUrl"];
-        private readonly string authHeader = TestContext.Parameters["AuthHeader"];
-        private readonly string apiKey = TestContext.Parameters["ApiKey"];
-        private readonly string endpoint = TestContext.Parameters["CreateBookEndpoint"];
+        private readonly string shopName = TestContext.Parameters["ShopName"];
+
+        private const int EXISTING_BOOK = 100;
 
         private RestClient restClient;
 
@@ -26,7 +26,6 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         [Test]
         public void When_NewBookCreated_ReturnsCreated()
         {
-            var request = GetRequest(shopName);
             var isbn = new Random().Next();
             var newBook = new BookRequest
             {
@@ -40,8 +39,8 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
                 AvailableCopies = 5,
                 TotalCopies = 5
             };
-            request.AddJsonBody(newBook);
 
+            var request = BookRequestHelper.CreateBook(shopName, newBook);
             var response = this.restClient.Execute<BookResponse>(request);
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -51,22 +50,11 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_NoBookSent_ReturnsBadRequest()
-        {
-            var request = GetRequest(shopName);
-            
-            var response = this.restClient.Execute<BookResponse>(request);
-
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [Test]
         public void When_BookAlreadyExists_ReturnsConflict()
         {
-            var request = GetRequest(shopName);
             var newBook = new BookRequest
             {
-                ISBN = 100,
+                ISBN = EXISTING_BOOK,
                 Title = "Existing Book",
                 Author = "Existing Author",
                 Publisher = "Existing Publisher",
@@ -76,22 +64,20 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
                 AvailableCopies = 5,
                 TotalCopies = 5
             };
-            request.AddJsonBody(newBook);
 
+            var request = BookRequestHelper.CreateBook(shopName, newBook);
             var response = this.restClient.Execute<BookResponse>(request);
 
             Assert.AreEqual(HttpStatusCode.Conflict, response.StatusCode);
         }
 
-        public RestRequest GetRequest(string shop)
+        [Test]
+        public void When_NoBookSent_ReturnsBadRequest()
         {
-            var resource = string.Format(this.endpoint, shop);
-            var result = new RestRequest(resource, Method.POST, DataFormat.Json);
+            var request = BookRequestHelper.CreateBook(shopName, null);
+            var response = this.restClient.Execute<BookResponse>(request);
 
-            if (!string.IsNullOrWhiteSpace(authHeader))
-                result.AddHeader(authHeader, apiKey);
-
-            return result;
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         }
     }
 }

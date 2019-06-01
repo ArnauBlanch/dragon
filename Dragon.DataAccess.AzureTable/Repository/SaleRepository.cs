@@ -11,13 +11,13 @@ using System.Linq;
 
 namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 {
-    public class SalesRepository : AzureTableRepository<SaleEntity>, ISalesRepository
+    public class SaleRepository : AzureTableRepository<SaleEntity>, ISaleRepository
     {
         private readonly ISaleEntityMapper saleEntityMapper;
 
         protected override string TableName => "BookSales";
 
-        public SalesRepository(
+        public SaleRepository(
             ISaleEntityMapper saleEntityMapper,
             IAppConfiguration configuration,
             ILogger<AzureTableRepository<SaleEntity>> logger)
@@ -28,7 +28,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 
         public async Task<IList<Sale>> GetAllAsync(string shop)
         {
-            var retrieved = await this.RetrieveEntityWherePartitionKeyStartWithAsync(shop);
+            var retrieved = await this.RetrieveEntityWherePartitionKeyStartWithAsync($"{shop}_");
             var result = retrieved.Select(x => this.saleEntityMapper.Convert(x)).ToList();
 
             return result;
@@ -68,6 +68,18 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
         {
             var partitionKey = $"{shop}_{isbn}";
             var entities = await this.RetrieveEntityListByPartitionKeyAsync(partitionKey);
+
+            foreach (var entity in entities)
+            {
+                await this.DeleteEntityAsync(entity);
+            }
+
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(string shop)
+        {
+            var entities = await this.RetrieveEntityWherePartitionKeyStartWithAsync($"{shop}_");
 
             foreach (var entity in entities)
             {
