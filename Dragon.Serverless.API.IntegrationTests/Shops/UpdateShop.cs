@@ -25,7 +25,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_ShopUpdated_ReturnsOk()
+        public void UpdateShop_When_ShopUpdated_ReturnsOk()
         {
             var ticks = DateTime.UtcNow.Ticks;
             var updatedShop = new ShopRequest
@@ -46,7 +46,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_ShopUpdatedWithDifferentId_ReturnsBadRequest()
+        public void UpdateShop_When_ShopUpdatedWithDifferentId_ReturnsBadRequest()
         {
             var ticks = DateTime.UtcNow.Ticks;
             var updatedShop = new ShopRequest
@@ -63,7 +63,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Shops
         }
 
         [Test]
-        public void When_ShopDoesNotExist_ReturnsNotFound()
+        public void UpdateShop_When_ShopDoesNotExist_ReturnsNotFound()
         {
             var ticks = DateTime.UtcNow.Ticks;
             var updatedShop = new ShopRequest

@@ -21,7 +21,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_ThereAreBooks_Returns200()
+        public void GetAllBooks_When_ThereAreBooks_Returns200()
         {
             var request = BookRequestHelper.GetAllBooks(shopName);
             var response = this.restClient.Execute<List<BookResponse>>(request);
@@ -32,7 +32,16 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_ThereAreNoBooks_ReturnsEmptyOk()
+        public void GetAllBooks_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var request = BookRequestHelper.GetAllBooks("UnexistingShop");
+            var response = this.restClient.Execute<List<BookResponse>>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void GetAllBooks_When_ThereAreNoBooks_ReturnsEmptyOk()
         {
             var request = BookRequestHelper.GetAllBooks("EmptyShop");
             var response = this.restClient.Execute<List<BookResponse>>(request);

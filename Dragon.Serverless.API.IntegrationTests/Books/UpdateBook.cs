@@ -25,7 +25,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookUpdated_ReturnsOk()
+        public void UpdateBook_When_BookUpdated_ReturnsOk()
         {
             var ticks = DateTime.UtcNow.Ticks;
             var updatedBook = new BookRequest
@@ -52,7 +52,30 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookUpdatedWithDifferentISBN_ReturnsBadRequest()
+        public void UpdateBook_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var ticks = DateTime.UtcNow.Ticks;
+            var updatedBook = new BookRequest
+            {
+                ISBN = EXISTING_BOOK,
+                Title = "Existing Book",
+                Author = "Existing Author",
+                Publisher = "Existing Publisher",
+                CoverUrl = $"{ticks}",
+                Price = 10,
+                ReducedPrice = 5,
+                AvailableCopies = 5,
+                TotalCopies = 5
+            };
+
+            var request = BookRequestHelper.UpdateBook("UnexistingShop", updatedBook.ISBN, updatedBook);
+            var response = this.restClient.Execute<BookResponse>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void UpdateBook_When_BookUpdatedWithDifferentISBN_ReturnsBadRequest()
         {
             var ticks = DateTime.UtcNow.Ticks;
             var updatedBook = new BookRequest
@@ -75,7 +98,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void When_BookDoesNotExist_ReturnsNotFound()
+        public void UpdateBook_When_BookDoesNotExist_ReturnsNotFound()
         {
             var updatedBook = new BookRequest
             {

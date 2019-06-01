@@ -25,7 +25,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookSoldWithSeller_ReturnsNoContent()
+        public void SellBook_When_BookSoldWithSeller_ReturnsNoContent()
         {
             var request = SaleRequestHelper.SellBook(shopName, EXISTING_BOOK, "TestSeller");
 
@@ -35,7 +35,17 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookSoldWithoutSeller_ReturnsNoContent()
+        public void SellBook_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var request = SaleRequestHelper.SellBook("UnexistingShop", EXISTING_BOOK, "TestSeller");
+
+            var response = this.restClient.Execute<BookResponse>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void SellBook_When_BookSoldWithoutSeller_ReturnsNoContent()
         {
             var request = SaleRequestHelper.SellBook(shopName, EXISTING_BOOK2, null);
 
@@ -45,7 +55,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookDoesNotExist_ReturnsNotFound()
+        public void SellBook_When_BookDoesNotExist_ReturnsNotFound()
         {
             var request = SaleRequestHelper.SellBook(shopName, NON_EXISTING_BOOK, null);
 
@@ -55,7 +65,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookIsSoldOut_ReturnsBadRequest()
+        public void SellBook_When_BookIsSoldOut_ReturnsBadRequest()
         {
             var request = SaleRequestHelper.SellBook(shopName, SOLD_OUT_BOOK, null);
 

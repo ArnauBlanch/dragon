@@ -27,7 +27,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookUnsold_ReturnsNoContent()
+        public void UnsellBook_When_BookUnsold_ReturnsNoContent()
         {
             var saleDate = this.GetLastSaleDate(shopName, EXISTING_BOOK);
 
@@ -38,7 +38,16 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookUnsold2_ReturnsNoContent()
+        public void UnsellBook_When_ShopDoesNotExist_ReturnsNotFound()
+        {
+            var request = SaleRequestHelper.UnsellBook("UnexistingShop", EXISTING_BOOK, DateTime.UtcNow.ToString("o"));
+            var response = this.restClient.Execute<BookResponse>(request);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Test]
+        public void UnsellBook_When_BookUnsold2_ReturnsNoContent()
         {
             var saleDate = this.GetLastSaleDate(shopName, EXISTING_BOOK2);
 
@@ -49,7 +58,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_BookDoesNotExist_ReturnsNotFound()
+        public void UnsellBook_When_BookDoesNotExist_ReturnsNotFound()
         {
             var request = SaleRequestHelper.UnsellBook(shopName, NON_EXISTING_BOOK, DateTime.UtcNow.ToString("o"));
             var response = this.restClient.Execute<BookResponse>(request);
@@ -58,7 +67,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Sales
         }
 
         [Test]
-        public void When_InvalidDate_ReturnsBadRequest()
+        public void UnsellBook_When_InvalidDate_ReturnsBadRequest()
         {
             var request = SaleRequestHelper.UnsellBook(shopName, FULLY_AVAILABLE_BOOK, DateTime.UtcNow.ToString("o"));
             var response = this.restClient.Execute<BookResponse>(request);

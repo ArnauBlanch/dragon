@@ -14,13 +14,16 @@ namespace Dragon.Serverless.API.Functions.Books
     public class GetAllBooks
     {
         private readonly IBookAppService bookAppService;
+        private readonly IShopAppService shopAppService;
         private readonly IBookMapper bookMapper;
 
         public GetAllBooks(
             IBookAppService bookAppService,
+            IShopAppService shopAppService,
             IBookMapper bookMapper)
         {
             this.bookAppService = bookAppService ?? throw new ArgumentNullException(nameof(bookAppService));
+            this.shopAppService = shopAppService ?? throw new ArgumentNullException(nameof(shopAppService));
             this.bookMapper = bookMapper ?? throw new ArgumentNullException(nameof(bookMapper));
         }
 
@@ -32,6 +35,10 @@ namespace Dragon.Serverless.API.Functions.Books
         {
             if (string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
+
+            var shop = await this.shopAppService.GetByIdAsync(req.Query["shop"]);
+            if (shop == null)
+                return new NotFoundResult();
 
             var books = await this.bookAppService.GetAllAsync(req.Query["shop"]);
 
