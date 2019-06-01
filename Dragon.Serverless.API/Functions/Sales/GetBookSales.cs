@@ -27,7 +27,7 @@ namespace Dragon.Serverless.API.Functions.Sales
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
         {
-            if (!int.TryParse(req.Query["isbn"], out int isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
+            if (!long.TryParse(req.Query["isbn"], out long isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
 
             var sales = await this.saleAppService.GetByISBNAsync(req.Query["shop"], isbn);

@@ -34,7 +34,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             return result;
         }
 
-        public async Task<IList<Sale>> GetByISBNAsync(string shop, int isbn)
+        public async Task<IList<Sale>> GetByISBNAsync(string shop, long isbn)
         {
             var partitionKey = $"{shop}_{isbn}";
             var retrieved = await this.RetrieveEntityListByPartitionKeyAsync(partitionKey);
@@ -53,7 +53,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 
         }
 
-        public async Task<bool> DeleteAsync(string shop, int isbn, string date)
+        public async Task<bool> DeleteAsync(string shop, long isbn, string date)
         {
             var partitionKey = $"{shop}_{isbn}";
             var retrieved = await this.RetrieveEntityAsync(partitionKey, date);
@@ -64,7 +64,7 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             return true;
         }
 
-        public async Task<bool> DeleteAsync(string shop, int isbn)
+        public async Task<bool> DeleteAsync(string shop, long isbn)
         {
             var partitionKey = $"{shop}_{isbn}";
             var entities = await this.RetrieveEntityListByPartitionKeyAsync(partitionKey);

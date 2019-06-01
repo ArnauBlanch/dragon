@@ -10,17 +10,17 @@ namespace Dragon.Application.Services.Implementations
 {
     public class SaleAppService : ISaleAppService
     {
-        private readonly IInventoryRepository inventoryRepository;
+        private readonly IBookRepository inventoryRepository;
         private readonly ISaleRepository salesRepository;
         public SaleAppService(
-            IInventoryRepository inventoryRepository,
+            IBookRepository inventoryRepository,
             ISaleRepository salesRepository)
         {
             this.inventoryRepository = inventoryRepository ?? throw new ArgumentNullException(nameof(inventoryRepository));
             this.salesRepository = salesRepository ?? throw new ArgumentNullException(nameof(salesRepository));
         }
 
-        public async Task<OperationResult> CreateAsync(string shop, int isbn, string seller)
+        public async Task<OperationResult> CreateAsync(string shop, long isbn, string seller)
         {
             var inventoryResult = await this.inventoryRepository.SellByISBNAsync(shop, isbn);
 
@@ -42,7 +42,7 @@ namespace Dragon.Application.Services.Implementations
             return inventoryResult;
         }
 
-        public async Task<OperationResult> DeleteAsync(string shop, int isbn, string date)
+        public async Task<OperationResult> DeleteAsync(string shop, long isbn, string date)
         {
             var result = await this.inventoryRepository.UnsellByISBNAsync(shop, isbn);
 
@@ -65,7 +65,7 @@ namespace Dragon.Application.Services.Implementations
             return result;
         }
 
-        public async Task<IList<Sale>> GetByISBNAsync(string shop, int isbn)
+        public async Task<IList<Sale>> GetByISBNAsync(string shop, long isbn)
         {
             var book = await this.inventoryRepository.GetByISBNAsync(shop, isbn);
             if (book == null)

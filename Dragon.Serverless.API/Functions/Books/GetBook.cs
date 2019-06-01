@@ -25,11 +25,9 @@ namespace Dragon.Serverless.API.Functions.Books
 
         [FunctionName("GetBookByISBN")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
-            ILogger log,
-            ExecutionContext context)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
         {
-            if (!int.TryParse(req.Query["isbn"], out int isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
+            if (!long.TryParse(req.Query["isbn"], out long isbn) || string.IsNullOrWhiteSpace(req.Query["shop"]))
                 return new BadRequestResult();
 
             var book = await this.bookAppService.GetAsync(req.Query["shop"], isbn);

@@ -11,12 +11,12 @@ namespace Dragon.Application.Services.Implementations
     {
         private readonly IShopRepository shopRepository;
         private readonly ISaleRepository saleRepository;
-        private readonly IInventoryRepository inventoryRepository;
+        private readonly IBookRepository inventoryRepository;
 
         public ShopAppService(
             IShopRepository shopRepository,
             ISaleRepository saleRepository,
-            IInventoryRepository inventoryRepository)
+            IBookRepository inventoryRepository)
         {
             this.shopRepository = shopRepository ?? throw new ArgumentNullException(nameof(shopRepository));
             this.saleRepository = saleRepository ?? throw new ArgumentNullException(nameof(saleRepository));

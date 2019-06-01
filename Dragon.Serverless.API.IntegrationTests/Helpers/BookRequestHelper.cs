@@ -14,9 +14,10 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
         private static readonly string createBookEndpoint = TestContext.Parameters["CreateBookEndpoint"];
         private static readonly string updateBookEndpoint = TestContext.Parameters["UpdateBookEndpoint"];
         private static readonly string deleteBookEndpoint = TestContext.Parameters["DeleteBookEndpoint"];
+        private static readonly string importBooksEndpoint = TestContext.Parameters["ImportBooksEndpoint"];
 
 
-        public static IRestRequest GetBook(string shop, int isbn)
+        public static IRestRequest GetBook(string shop, long isbn)
         {
             var resource = string.Format(getBookEndpoint, shop, isbn);
             var request = new RestRequest(resource, Method.GET, DataFormat.Json)
@@ -46,7 +47,7 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
             return request;
         }
 
-        public static IRestRequest UpdateBook(string shop, int isbn, BookRequest book)
+        public static IRestRequest UpdateBook(string shop, long isbn, BookRequest book)
         {
             var resource = string.Format(updateBookEndpoint, shop, isbn);
             var request = new RestRequest(resource, Method.PUT, DataFormat.Json)
@@ -58,10 +59,20 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
             return request;
         }
 
-        public static IRestRequest DeleteBook(string shop, int isbn)
+        public static IRestRequest DeleteBook(string shop, long isbn)
         {
             var resource = string.Format(deleteBookEndpoint, shop, isbn);
             var request = new RestRequest(resource, Method.DELETE, DataFormat.Json)
+                .WithAuth();
+
+            return request;
+        }
+
+        public static IRestRequest ImportBooks(string shop, string filename, string path)
+        {
+            var resource = string.Format(importBooksEndpoint, shop);
+            var request = new RestRequest(resource, Method.POST, DataFormat.Json)
+                .AddFile(filename, path)
                 .WithAuth();
 
             return request;
