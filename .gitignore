@@ -35,3 +35,4 @@ msbuild.wrn
 /Dragon.Serverless.API/local.settings.dev.json
 /Dragon.Serverless.API.IntegrationTests/.runsettings-func
 /Dragon.Serverless.API.IntegrationTests/.runsettings
+/Dragon.Serverless.API.IntegrationTests/.runsettings-api
