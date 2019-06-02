@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dragon.Serverless.API", "Dr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dragon.DataAccess.AzureTable", "Dragon.DataAccess.AzureTable\Dragon.DataAccess.AzureTable.csproj", "{B677B4B7-F280-4FBA-BF2D-E259570E961C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragon.Serverless.API.IntegrationTests", "Dragon.Serverless.API.IntegrationTests\Dragon.Serverless.API.IntegrationTests.csproj", "{54C670CB-A562-4CBA-B81F-9C558F3139D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dragon.Serverless.API.IntegrationTests", "Dragon.Serverless.API.IntegrationTests\Dragon.Serverless.API.IntegrationTests.csproj", "{54C670CB-A562-4CBA-B81F-9C558F3139D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dragon.External.BookSpider", "Dragon.External.BookSpider\Dragon.External.BookSpider.csproj", "{C77DA453-F06F-4FAC-8121-D5F6B43138D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{54C670CB-A562-4CBA-B81F-9C558F3139D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54C670CB-A562-4CBA-B81F-9C558F3139D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54C670CB-A562-4CBA-B81F-9C558F3139D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C77DA453-F06F-4FAC-8121-D5F6B43138D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77DA453-F06F-4FAC-8121-D5F6B43138D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77DA453-F06F-4FAC-8121-D5F6B43138D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77DA453-F06F-4FAC-8121-D5F6B43138D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

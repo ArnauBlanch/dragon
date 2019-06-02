@@ -60,12 +60,12 @@ namespace Dragon.Serverless.API.Functions.Books
                         TotalBooks = books.Count()
                     };
 
-                    foreach (var book in books)
-                    {
-                        var inserted = await this.bookAppService.CreateAsync(shop.Id, book);
-                        if (inserted != null)
-                            ++category.BooksInserted;
-                    }
+                    await Task.WhenAll(books.Select(async x =>
+                     {
+                         var inserted = await this.bookAppService.CreateAsync(shop.Id, x);
+                         if (inserted != null)
+                             ++category.BooksInserted;
+                     }));
 
                     result.TotalBooks += category.TotalBooks;
                     result.BooksInserted += category.BooksInserted;

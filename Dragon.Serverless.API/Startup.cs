@@ -1,10 +1,14 @@
-﻿using Dragon.Application.Services.Contracts;
+﻿using Dragon.Application.Mappers.Contracts;
+using Dragon.Application.Mappers.Implementations;
+using Dragon.Application.Services.Contracts;
 using Dragon.Application.Services.Implementations;
 using Dragon.DataAccess.AzureTable.Mappers.Implementations;
 using Dragon.DataAccess.AzureTable.Repository.Implementations;
 using Dragon.DataAccess.Mappers.Contracts;
 using Dragon.DataAccess.Mappers.Implementations;
 using Dragon.Domain.Repository;
+using Dragon.External.BookSpider.Services.Contracts;
+using Dragon.External.BookSpider.Services.Implementations;
 using Dragon.Serverless.API.Configuration;
 using Dragon.Serverless.API.Mappers.Contracts;
 using Dragon.Serverless.API.Mappers.Implementations;
@@ -26,6 +30,7 @@ namespace Dragon.Serverless.API
             builder.Services.AddSingleton<ISaleEntityMapper, SaleEntityMapper>();
             builder.Services.AddSingleton<IShopEntityMapper, ShopEntityMapper>();
             builder.Services.AddSingleton<IInventoryExcelMapper, InventoryExcelMapper>();
+            builder.Services.AddSingleton<IBookInfoMapper, BookInfoMapper>();
 
             builder.Services.AddSingleton<IAppConfiguration, AppConfiguration>();
 
@@ -36,6 +41,8 @@ namespace Dragon.Serverless.API
             builder.Services.AddSingleton<IBookRepository, BookInventory>();
             builder.Services.AddSingleton<ISaleRepository, SaleRepository>();
             builder.Services.AddSingleton<IShopRepository, ShopRepository>();
+
+            builder.Services.AddSingleton<IBookFinderService, BookFinderService>();
 
         }
     }
