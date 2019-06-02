@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dragon.Domain\Dragon.Domain.csproj" />
+    <ProjectReference Include="..\Dragon.External.BookSpider\Dragon.External.BookSpider.csproj" />
   </ItemGroup>
 
 </Project>
