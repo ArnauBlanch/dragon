@@ -73,12 +73,12 @@ namespace Dragon.Serverless.API.IntegrationTests.Books
         }
 
         [Test]
-        public void ImportBooks_When_NoShopSent_ReturnsBadRequest()
+        public void ImportBooks_When_ShopDoesNotExist_ReturnsNotFound()
         {
-            var request = BookRequestHelper.ImportBooks(null, "test.xlsx", @"Books/test.xlsx");
+            var request = BookRequestHelper.ImportBooks("UnexistingShop", "test.xlsx", @"Books/test.xlsx");
             var response = this.restClient.Execute<ImportBooksResponse>(request);
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
     }
 }
