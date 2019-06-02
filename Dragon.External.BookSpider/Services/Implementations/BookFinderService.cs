@@ -31,9 +31,13 @@ namespace Dragon.External.BookSpider.Services.Implementations
             var publisher = pageDoc.DocumentNode.SelectSingleNode("//*[@id=\"bd-isbn\"]/div/div[2]/p[1]/span[2]");
             var cover = pageDoc.DocumentNode.SelectSingleNode("//*[@id=\"coverImage\"]")?.Attributes?["src"];
 
+            if (!long.TryParse(isbnText?.InnerText?.Trim(new[] { ' ', '/' }), out long isbnCode)
+                || isbn != isbnCode)
+                return null;
+
             var bookInfo = new BookInfo
             {
-                ISBN = long.Parse(isbnText?.InnerText?.Trim(new[] { ' ', '/' })),
+                ISBN = isbn,
                 Title = title?.InnerText,
                 Author = author?.InnerText,
                 Publisher = publisher?.InnerText,
