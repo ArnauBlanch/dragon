@@ -52,6 +52,7 @@ namespace Dragon.Serverless.API.IntegrationTests
                 return;
 
             var request = new RestRequest(checkApiKeyEndpoint, Method.GET, DataFormat.Json);
+            request.AddHeader(authHeader, "IncorrectApiKey");
             var response = this.restClient.Execute(request);
 
             Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
