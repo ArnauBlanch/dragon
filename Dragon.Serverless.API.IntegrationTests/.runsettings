@@ -6,6 +6,8 @@
     <Parameter name="AuthHeader" value="" />
     <Parameter name="ApiKey" value="" />
 
+    <Parameter name="CheckApiKeyEndpoint" value="/CheckApiKey" />
+    
     <Parameter name="GetAllBooksEndpoint" value="/GetAllBooks?shop={0}" />
     <Parameter name="CreateBookEndpoint" value="/CreateBook?shop={0}" />
     <Parameter name="GetBookEndpoint" value="/GetBookByISBN?shop={0}&amp;isbn={1}" />
