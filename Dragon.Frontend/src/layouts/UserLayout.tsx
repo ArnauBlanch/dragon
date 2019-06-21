@@ -3,7 +3,7 @@ import { ConnectProps, ConnectState } from '@/models/connect';
 import { connect } from 'dva';
 import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import Link from 'umi/link';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
@@ -46,10 +46,10 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Ant Design</span>
+                <span className={styles.title}><FormattedMessage id="app.name" /></span>
               </Link>
             </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            <div className={styles.desc}><FormattedMessage id="app.description"/></div>
           </div>
           {children}
         </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Tabs } from 'antd';
+import { Form } from 'antd';
 import classNames from 'classnames';
 import LoginItem, { LoginItemType, LoginItemProps } from './LoginItem';
 import LoginTab from './LoginTab';
@@ -108,10 +108,10 @@ class Login extends Component<LoginProps, LoginState> {
 
   render() {
     const { className, children } = this.props;
-    const { type, tabs = [] } = this.state;
+    //const { type, tabs = [] } = this.state;
     const TabChildren: React.ReactComponentElement<LoginTab>[] = [];
     const otherChildren: React.ReactElement<any>[] = [];
-    React.Children.forEach(
+    /*React.Children.forEach(
       children,
       (child: React.ReactComponentElement<LoginTab> | React.ReactElement<any>) => {
         if (!child) {
@@ -123,26 +123,12 @@ class Login extends Component<LoginProps, LoginState> {
           otherChildren.push(child);
         }
       },
-    );
+    );*/
     return (
       <LoginContext.Provider value={this.getContext()}>
         <div className={classNames(className, styles.login)}>
           <Form onSubmit={this.handleSubmit}>
-            {tabs.length ? (
-              <React.Fragment>
-                <Tabs
-                  animated={false}
-                  className={styles.tabs}
-                  activeKey={type}
-                  onChange={this.onSwitch}
-                >
-                  {TabChildren}
-                </Tabs>
-                {otherChildren}
-              </React.Fragment>
-            ) : (
-              children
-            )}
+            {children}
           </Form>
         </div>
       </LoginContext.Provider>
