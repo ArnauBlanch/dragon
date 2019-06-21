@@ -99,16 +99,22 @@ export default {
   // 路由配置
   routes: [
     {
+      path: '/user',
+      component: '../layouts/UserLayout',
+      routes: [
+        {
+          path: '/user/login',
+          name: 'login',
+          component: './user/login'
+        }
+      ]
+    },
+    {
       path: '/',
       component: '../layouts/BasicLayout',
       Routes: ['src/pages/Authorized'],
       authority: ['admin', 'user'],
       routes: [
-        {
-          name: 'login',
-          path: '/user/login',
-          component: './user/login',
-        },
         {
           path: '/',
           name: 'welcome',

@@ -6,6 +6,8 @@ import pwa from './en-US/pwa';
 import component from './en-US/component';
 
 export default {
+  'app.name': 'Dragon',
+  'app.description': 'Book sales management platform',
   'navBar.lang': 'Languages',
   'layout.user.link.help': 'Help',
   'layout.user.link.privacy': 'Privacy',
