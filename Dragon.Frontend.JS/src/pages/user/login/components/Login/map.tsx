@@ -3,17 +3,17 @@ import React from 'react';
 import styles from './index.less';
 
 export default {
-  UserName: {
+  Name: {
     props: {
       size: 'large',
-      id: 'userName',
+      id: 'name',
       prefix: <Icon type="user" className={styles.prefixIcon} />,
       placeholder: 'admin',
     },
     rules: [
       {
         required: true,
-        message: 'Please enter username!',
+        message: 'Please enter name!',
       },
     ],
   },

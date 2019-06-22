@@ -23,7 +23,7 @@ interface LoginState {
   autoLogin: boolean;
 }
 export interface FromDataType {
-  name: string;
+  userName: string;
   password: string;
 }
 
@@ -112,19 +112,19 @@ class Login extends Component<LoginProps, LoginState> {
             this.loginForm = form;
           }}
         >
-          <UserName
-            name="userName"
-            placeholder={`${formatMessage({ id: 'user-login.login.userName' })}: admin or user`}
+          <Name
+            name="name"
+            placeholder={formatMessage({ id: 'user-login.login.name' })}
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'user-login.userName.required' }),
+                message: formatMessage({ id: 'user-login.name.required' }),
               },
             ]}
           />
           <Password
             name="password"
-            placeholder={`${formatMessage({ id: 'user-login.login.password' })}: ant.design`}
+            placeholder={formatMessage({ id: 'user-login.login.password' })}
             rules={[
               {
                 required: true,
