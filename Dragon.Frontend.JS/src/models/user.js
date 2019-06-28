@@ -12,17 +12,10 @@ const UserModel = {
         payload: response,
       });
     },
-
-    *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'saveCurrentUser',
-        payload: response,
-      });
-    },
   },
   reducers: {
-    saveCurrentUser(state, action) {
+    fetchCurrentUser(state, action) {
+      const authority = 
       return { ...state, currentUser: action.payload || {} };
     },
 

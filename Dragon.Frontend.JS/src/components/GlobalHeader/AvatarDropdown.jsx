@@ -5,6 +5,7 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+import { getAuthority } from '../../utils/authority';
 
 class AvatarDropdown extends React.Component {
   onMenuClick = event => {
@@ -28,40 +29,32 @@ class AvatarDropdown extends React.Component {
   render() {
     const { currentUser = {}, menu } = this.props;
 
-    if (!menu) {
+    /*if (!menu) {
       return (
         <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
+          <Avatar size="small" className={styles.avatar} src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" alt="avatar" />
           <span className={styles.name}>{currentUser.name}</span>
         </span>
       );
     }
-
+*/
     const menuHeaderDropdown = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
-        <Menu.Item key="center">
-          <Icon type="user" />
-          <FormattedMessage id="menu.account.center" defaultMessage="account center" />
-        </Menu.Item>
-        <Menu.Item key="settings">
-          <Icon type="setting" />
-          <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
-        </Menu.Item>
-        <Menu.Divider />
         <Menu.Item key="logout">
           <Icon type="logout" />
           <FormattedMessage id="menu.account.logout" defaultMessage="logout" />
         </Menu.Item>
       </Menu>
     );
-    return currentUser && currentUser.name ? (
+    const userName = getAuthority().name;
+    return (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-          <span className={styles.name}>{currentUser.name}</span>
+          <Avatar size="small" className={styles.avatar} src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" alt="avatar" />
+          <span className={styles.name}>{userName}</span>
         </span>
       </HeaderDropdown>
-    ) : (
+    )/* : (
       <Spin
         size="small"
         style={{
@@ -69,7 +62,7 @@ class AvatarDropdown extends React.Component {
           marginRight: 8,
         }}
       />
-    );
+    );*/
   }
 }
 

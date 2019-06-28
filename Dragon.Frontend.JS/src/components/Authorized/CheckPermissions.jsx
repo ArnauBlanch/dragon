@@ -1,6 +1,7 @@
 import React from 'react';
 import { CURRENT } from './renderAuthorize'; // eslint-disable-next-line import/no-cycle
 
+import { getAuthority } from '../../utils/authority';
 import PromiseRender from './PromiseRender';
 
 /**
@@ -70,7 +71,8 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
 export { checkPermissions };
 
 function check(authority, target, Exception) {
-  return checkPermissions(authority, CURRENT, target, Exception);
+  var currentAuthority = getAuthority();
+  return checkPermissions(authority, currentAuthority ? currentAuthority.type : null, target, Exception);
 }
 
 export default check;

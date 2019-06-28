@@ -1,5 +1,7 @@
 import { parse, stringify } from 'qs';
 import { routerRedux } from 'dva/router';
+import { clearAuthority } from '../utils/authority';
+
 export function getPageQuery() {
   return parse(window.location.href.split('?')[1]);
 }
@@ -10,6 +12,7 @@ const Model = {
   },
   effects: {
     *logout(_, { put }) {
+      clearAuthority();
       const { redirect } = getPageQuery(); // redirect
 
       if (window.location.pathname !== '/user/login' && !redirect) {
