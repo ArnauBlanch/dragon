@@ -29,15 +29,6 @@ class AvatarDropdown extends React.Component {
   render() {
     const { currentUser = {}, menu } = this.props;
 
-    /*if (!menu) {
-      return (
-        <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" alt="avatar" />
-          <span className={styles.name}>{currentUser.name}</span>
-        </span>
-      );
-    }
-*/
     const menuHeaderDropdown = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
         <Menu.Item key="logout">
@@ -54,18 +45,10 @@ class AvatarDropdown extends React.Component {
           <span className={styles.name}>{userName}</span>
         </span>
       </HeaderDropdown>
-    )/* : (
-      <Spin
-        size="small"
-        style={{
-          marginLeft: 8,
-          marginRight: 8,
-        }}
-      />
-    );*/
+    );
   }
 }
 
-export default connect(({ user }) => ({
-  currentUser: user.currentUser,
+export default connect(({ currentUser }) => ({
+  currentUser: currentUser,
 }))(AvatarDropdown);
