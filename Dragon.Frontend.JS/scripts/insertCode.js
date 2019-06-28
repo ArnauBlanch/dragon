@@ -123,7 +123,6 @@ const insertRightContent = configPath => {
       return item.type !== 'ImportDeclaration';
     });
     // 从组件中导入 CopyBlock
-    body.splice(index, 0, parseCode(`import NoticeIconView from './NoticeIconView';`));
 
     body.forEach(item => {
       if (item.type === 'VariableDeclaration') {
@@ -138,7 +137,6 @@ const insertRightContent = configPath => {
               }
             });
             node.argument.children.splice(index, 1, parseCode(`<Avatar menu />`).expression);
-            node.argument.children.splice(index, 0, parseCode(`<NoticeIconView />`).expression);
           }
         });
       }
