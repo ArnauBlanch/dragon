@@ -18,10 +18,9 @@ const plugins = [
       locale: {
         // default false
         enable: true,
-        // default zh-CN
-        default: 'en-US',
+        default: 'ca-ES',
         // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true,
+        baseNavigator: false,
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
@@ -53,15 +52,6 @@ const plugins = [
   ],
 ]; // 针对 preview.pro.ant.design 的 GA 统计代码
 
-if (isAntDesignProPreview) {
-  plugins.push([
-    'umi-plugin-ga',
-    {
-      code: 'UA-72788897-6',
-    },
-  ]);
-}
-
 export default {
   plugins,
   block: {
@@ -71,7 +61,7 @@ export default {
   targets: {
     ie: 11,
   },
-  devtool: isAntDesignProPreview ? 'source-map' : false,
+  devtool: 'source-map',//isAntDesignProPreview ? 'source-map' : false,
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
     {
@@ -100,6 +90,14 @@ export default {
           routes: [
             {
               path: '/',
+              name: 'welcome',
+              icon: 'smile',
+              component: './Welcome',
+              Routes: ['src/pages/Authorized'],
+              authority: ['admin', 'user'],
+            },
+            {
+              path: '/test',
               name: 'welcome',
               icon: 'smile',
               component: './Welcome',

@@ -11,7 +11,7 @@ import { StateType } from './model';
 import LoginComponents from './components/Login';
 import styles from './style.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
+const { Name, Password, Submit } = LoginComponents;
 
 interface LoginProps {
   dispatch: Dispatch<any>;
@@ -101,17 +101,23 @@ class Login extends Component<LoginProps, LoginState> {
 
   render() {
     const { userLogin, submitting } = this.props;
+    const { status } = userLogin;
     const { type, autoLogin } = this.state;
     return (
       <div className={styles.main}>
         <LoginComponents
-          defaultActiveKey={type}
           //onTabChange={this.onTabChange}
           onSubmit={this.handleSubmit}
           ref={(form: any) => {
             this.loginForm = form;
           }}
         >
+          { status === 'error' &&
+            !submitting &&
+            this.renderMessage(
+              formatMessage({ id: 'user-login.login.message-invalid-credentials' }),
+            )}
+
           <Name
             name="name"
             placeholder={formatMessage({ id: 'user-login.login.name' })}

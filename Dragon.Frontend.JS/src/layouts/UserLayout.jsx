@@ -1,4 +1,5 @@
 import { DefaultFooter, getMenuData, getPageTitle } from '@ant-design/pro-layout';
+import { Icon } from 'antd';
 import DocumentTitle from 'react-document-title';
 import Link from 'umi/link';
 import React from 'react';
@@ -32,9 +33,6 @@ const UserLayout = props => {
       })}
     >
       <div className={styles.container}>
-        <div className={styles.lang}>
-          <SelectLang />
-        </div>
         <div className={styles.content}>
           <div className={styles.top}>
             <div className={styles.header}>
@@ -47,7 +45,9 @@ const UserLayout = props => {
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <DefaultFooter
+          links={[]}
+          copyright="2019 - arnau.xyz" />
       </div>
     </DocumentTitle>
   );

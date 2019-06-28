@@ -6,8 +6,13 @@ import { getPageQuery, setAuthority } from './utils/utils';
 
 export interface StateType {
   status?: 'ok' | 'error';
-  type?: string;
-  currentAuthority?: 'user' | 'guest' | 'admin';
+  currentUser?: CurrentUser;
+}
+
+export interface CurrentUser {
+  name: string,
+  type: string,
+  password: string
 }
 
 export type Effect = (
@@ -20,7 +25,6 @@ export interface ModelType {
   state: StateType;
   effects: {
     login: Effect;
-    getCaptcha: Effect;
   };
   reducers: {
     changeLoginStatus: Reducer<StateType>;
@@ -36,44 +40,58 @@ const Model: ModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const { response } = yield call(checkApiKey, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      // Login successfully
-      if (response.status === 200) {
-        const urlParams = new URL(window.location.href);
-        const params = getPageQuery();
-        let { redirect } = params as { redirect: string };
-        if (redirect) {
-          const redirectUrlParams = new URL(redirect);
-          if (redirectUrlParams.origin === urlParams.origin) {
-            redirect = redirect.substr(urlParams.origin.length);
-            if (redirect.match(/^\/.*#/)) {
-              redirect = redirect.substr(redirect.indexOf('#') + 1);
+      const callResult = yield call(checkApiKey, payload);
+      if (callResult) {
+        const response = callResult.response;
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: response.status === 200 ? 'ok' : 'error',
+            currentUser: {
+              name: payload.name,
+              type: 'admin',
+              password: payload.password
             }
-          } else {
-            window.location.href = redirect;
-            return;
+          },
+        });
+        // Login successfully
+        if (response.status === 200) {
+          const urlParams = new URL(window.location.href);
+          const params = getPageQuery();
+          let { redirect } = params as { redirect: string };
+          if (redirect) {
+            const redirectUrlParams = new URL(redirect);
+            if (redirectUrlParams.origin === urlParams.origin) {
+              redirect = redirect.substr(urlParams.origin.length);
+              if (redirect.match(/^\/.*#/)) {
+                redirect = redirect.substr(redirect.indexOf('#') + 1);
+              }
+            } else {
+              window.location.href = redirect;
+              return;
+            }
           }
+          yield put(routerRedux.push('/test'));//redirect || '/'));
         }
-        yield put(routerRedux.replace(redirect || '/'));
+      } else {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: 'error',
+            currentUser: null
+          }
+        })
       }
-    },
-
-    *getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
-    },
+    }
   },
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      setAuthority(payload.currentUser);
       return {
         ...state,
         status: payload.status,
-        type: payload.type,
+        currentUser: payload.currentUser,
       };
     },
   },
