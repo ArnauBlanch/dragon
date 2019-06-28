@@ -30,9 +30,8 @@ const AuthComponent = ({
   location = {
     pathname: '',
   },
-  user,
+  currentUser,
 }) => {
-  const { currentUser } = user;
   const { routes = [] } = route;
   const isLogin = currentUser && currentUser.name;
   return (
@@ -45,6 +44,6 @@ const AuthComponent = ({
   );
 };
 
-export default connect(({ user }) => ({
-  user,
+export default connect(({ currentUser }) => ({
+  currentUser,
 }))(AuthComponent);
