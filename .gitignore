@@ -36,3 +36,4 @@ msbuild.wrn
 /Dragon.Serverless.API.IntegrationTests/.runsettings-func
 /Dragon.Serverless.API.IntegrationTests/.runsettings
 /Dragon.Serverless.API.IntegrationTests/.runsettings-api
+dragon-frontend-react/.env

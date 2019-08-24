@@ -1,0 +1,51 @@
+.login {
+    padding: 30px;
+}
+
+.login-col {
+    max-width: 300px;
+    margin-top: 60px;
+}
+
+.login-logo {
+    text-align: center;
+    line-height: 50px;
+}
+.login-logo svg {
+    height: 50px;
+    vertical-align: middle;
+}
+.login-logo span {
+    margin-left: 20px;
+    vertical-align: middle;
+    font-size: 26px;
+    color: black;
+    font-weight: 600;
+}
+.login-subtitle {
+    text-align: center;
+    font-size: 13px;
+    margin: 10px;
+    margin-bottom: 30px;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+.login-layout {
+    background-image: url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);
+    background-repeat: no-repeat;
+    background-position: center 110px;
+    background-size: 100%;
+}
+
+.login-footer {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.login-alert {
+    margin-bottom: 20px;
+}
