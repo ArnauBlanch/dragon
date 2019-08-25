@@ -1,15 +1,16 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import './components.css';
 
 const menuItems = [
     { key: 'home', icon: 'home', name: 'Inici', path: '/' },
     { key: 'books', icon: 'book', name: 'Llibres', path: '/books' },
     { key: 'sales', icon: 'shopping', name: 'Vendes', path: '/sales' },
-    { key: 'shops', icon: 'shop', name: 'Botigues', path: '/shops' }
+    { key: 'shops', icon: 'shop', name: 'Botigues', path: '/shops' },
 ]
 
-const AppMenu = ({ currentPath, onItemSelected, mode, style }) => (
+const AppMenu = ({ currentPath, onItemSelected, mode, style, extraItems }) => (
     <Menu theme="dark" mode={mode} selectedKeys={[currentPath]} style={{ ...style }}>
         { menuItems.map(item => 
             <Menu.Item key={item.key}>
@@ -19,6 +20,7 @@ const AppMenu = ({ currentPath, onItemSelected, mode, style }) => (
                 </Link>
             </Menu.Item>)
         }
+        {extraItems}
     </Menu>
 );
 

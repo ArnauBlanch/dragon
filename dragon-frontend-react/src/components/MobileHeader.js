@@ -1,9 +1,12 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
+import { connect } from 'react-redux';
+import { logOut } from '../actions';
+import UserButton from './UserButton';
 import { ReactComponent as Logo } from '../logo.svg';
 const { Header } = Layout;
 
-const MobileHeader = ({ showSideMenu, toggleSideMenu }) => (
+const MobileHeader = ({ showSideMenu, toggleSideMenu, username, dispatch }) => (
     <Header
         style={{
             background: '#fff',
@@ -23,7 +26,15 @@ const MobileHeader = ({ showSideMenu, toggleSideMenu }) => (
             onClick={toggleSideMenu}
             type={showSideMenu ? 'menu-unfold' : 'menu-fold'}
             style={{ padding: 10, fontSize: '18px' }} />
+        <UserButton
+            isMobile={true}
+            username={username}
+            handleLogout={() => dispatch(logOut())}
+            className="logout-button"
+            style={{ float: 'right' }} />
     </Header>
 );
 
-export default MobileHeader;
+const mapStateToProps = state => state.user;
+
+export default connect(mapStateToProps)(MobileHeader);
