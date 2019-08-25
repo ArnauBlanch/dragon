@@ -3,12 +3,18 @@ import { Layout, Icon, Drawer } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import BookListPage from './Books/BookListPage';
+import ListShopsPage from './Shops/ListShopsPage';
 import SiderMenu from '../components/SiderMenu';
 import { Route } from 'react-router-dom';
-import MediaQuery from 'react-responsive';
+import Media from 'react-media';
 
 import './style.css';
-const { Header, Content, Footer } = Layout;
+const { Header, Footer } = Layout;
+
+const routes = [
+    <Route key="books" path="/books" component={BookListPage} />,
+    <Route key="shops" path="/shops" component={ListShopsPage} />
+];
 
 class App extends React.Component {
     state = { collapsed: false }
@@ -26,30 +32,32 @@ class App extends React.Component {
         const selectedKeys = [this.props.location.pathname]
         return (
             <Layout style={{ height: '100vh' }}>
-                <MediaQuery maxWidth={599}>
-                    <Drawer
-                        placement="left"
-                        closable={false}
-                        mask={true}
-                        maskClosable={true}
-                        visible={this.state.collapsed}
-                        onClose={() => this.setState({ collapsed: false })}
-                        width="fit-content"
-                        bodyStyle={{
-                            padding: 0,
-                            height: '100%'
-                        }}>
-                        <SiderMenu
-                            handleLinkClick={() => this.setState({ collapsed: false })}
-                            selectedKeys={selectedKeys} />
-                    </Drawer>
-                </MediaQuery>
-                <MediaQuery minWidth={600}>
-                    <SiderMenu
-                        selectedKeys={selectedKeys}
-                        onCollapse={collapsed => this.setState({ collapsed })}
-                        collapsed={this.state.collapsed} />
-                </MediaQuery>
+                <Media query="(max-width: 599px)">
+                    { matches => 
+                        matches ? (
+                            <Drawer
+                                placement="left"
+                                closable={false}
+                                mask={true}
+                                maskClosable={true}
+                                visible={this.state.collapsed}
+                                onClose={() => this.setState({ collapsed: false })}
+                                width="fit-content"
+                                bodyStyle={{
+                                    padding: 0,
+                                    height: '100%'
+                                }}>
+                                <SiderMenu
+                                    handleLinkClick={() => this.setState({ collapsed: false })}
+                                    selectedKeys={selectedKeys} />
+                            </Drawer>
+                        ) : (
+                            <SiderMenu
+                                selectedKeys={selectedKeys}
+                                onCollapse={collapsed => this.setState({ collapsed })}
+                                collapsed={this.state.collapsed} />
+                        ) }
+                    </Media>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }}>
                         <Icon
@@ -57,9 +65,7 @@ class App extends React.Component {
                             onClick={this.toggle}
                             type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
                     </Header>
-                    <Content style={{ margin: '24px 16px', padding: 24 }}>
-                        <Route path="/books" component={BookListPage} />
-                    </Content>
+                    {routes}
                     <Footer style={{ textAlign: 'center' }}>
                         Agrupament Escolta i Guia Pinya de Rosa  © {new Date().getFullYear()}
                         <br/><span style={{ fontSize: 13 }}>Made with ❤ by&nbsp;
