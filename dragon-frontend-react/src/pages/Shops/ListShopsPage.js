@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, PageHeader, Table, Spin } from 'antd';
+import { Layout, PageHeader, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Media from 'react-media';
@@ -16,7 +16,7 @@ const columns = [
 ]
 
 class ListShopsPage extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.dispatch(fetchShops());
     }
 
@@ -35,7 +35,7 @@ class ListShopsPage extends React.Component {
                                 columns={columnsToRender}
                                 style={{ height: '100%' }}
                                 loading={this.props.isFetching}
-                                dataSource={this.props.data} />)
+                                dataSource={this.props.data.map(x => ({ ...x, key: x.id }))} />)
                         }}
                     </Media>
                 </Layout.Content>

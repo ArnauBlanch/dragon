@@ -19,6 +19,11 @@
     height: 32px;
     vertical-align: middle;
 }
+
+.logo-header-mini {
+    float: left;
+}
+
 .logo span {
     margin-left: 12px;
     vertical-align: middle;
