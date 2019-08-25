@@ -26,7 +26,7 @@ const loginError = (err) => {
     return { type: LOGIN_ERROR }
 }
 
-export const login = (username, apiKey, history) => {
+export const login = (username, apiKey, redirectToReferer) => {
     return dispatch => {
         dispatch(loginRequested());
         return fetch(`${process.env.REACT_APP_API_URL}/checkApiKey`, {
@@ -36,8 +36,7 @@ export const login = (username, apiKey, history) => {
                 if (response.ok) {
                     dispatch(loginSuccess(username, apiKey));
                     dispatch(setUser(username, apiKey));
-                    const path = history.location.state ? history.location.state.referer : '/';
-                    history.push(path);
+                    redirectToReferer();
                 } else if (response.status === 401) {
                     dispatch(loginFailure());
                 } else {
