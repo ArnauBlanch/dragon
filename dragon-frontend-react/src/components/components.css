@@ -1,0 +1,34 @@
+
+.logout svg {
+    font-size: 18px;
+}
+.logout {
+    margin: 12px;
+}
+#root > section > section > header > div > ul > li:nth-child(10) > button > span.logout > span > i {
+    margin-right: 0; 
+}
+.logout-button.ant-dropdown-trigger {
+    float: right;
+}
+
+.logout-button {
+    margin-right: 12px;
+}
+
+.logout-button.ant-btn-link {
+    color: rgba(0, 0, 0, 0.65);
+}
+.logout-button.ant-btn-link:hover {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+div.username {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    max-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

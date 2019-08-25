@@ -23,9 +23,18 @@ class ListShopsPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <PageHeader title="Llista de botigues" breadcrumb={{ routes }} />
-                <Layout.Content style={{ margin: '24px 16px', background: '#fff', padding: 24 }}>
-                    <Media query="(min-width: 599px)">
+                <div style={{ width: '100%', background: '#fff' }}>
+                    <Media query="(max-width: 799px)">
+                        { matches => 
+                            <PageHeader
+                                title="Llista de botigues"
+                                breadcrumb={{ routes }}
+                                style={{ maxWidth: 1200, margin: 'auto', paddingLeft: matches ? 24 : 0 }} />
+                        }
+                    </Media>
+                </div>
+                <Layout.Content style={{ margin: '24px auto 24px auto', background: '#fff', padding: 24, maxWidth: '1200px' }}>
+                    <Media query="(min-width: 800px)">
                         { matches => {
                             let columnsToRender = [...columns]
                             if (matches)

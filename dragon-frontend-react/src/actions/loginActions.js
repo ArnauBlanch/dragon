@@ -37,6 +37,7 @@ export const login = (username, apiKey, redirectToReferer) => {
                     dispatch(loginSuccess(username, apiKey));
                     dispatch(setUser(username, apiKey));
                     redirectToReferer();
+                    window.scrollY(0);
                 } else if (response.status === 401) {
                     dispatch(loginFailure());
                 } else {

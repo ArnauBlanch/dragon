@@ -35,14 +35,14 @@ class App extends React.Component {
         const currentPath = pathParts.length >= 2 && pathParts[1] !== '' ? pathParts[1] : 'home'
         return (
             <Layout style={{ height: '100vh' }}>
-                <Media query="(max-width: 599px)" onChange={() => this.setState({ showSideMenu: false })}>
+                <Media query="(max-width: 799px)" onChange={() => this.setState({ showSideMenu: false })}>
                     <MobileDrawer
                         show={this.state.showSideMenu}
                         handleClose={() => this.setState({ showSideMenu: false })}
                         currentPath={currentPath} />
                 </Media>
                 <Layout>
-                    <Media query="(max-width: 599px)">
+                    <Media query="(max-width: 799px)">
                         { matches => matches ?
                             <MobileHeader showSideMenu={this.state.showSideMenu} toggleSideMenu={this.toggleSideMenu} />
                             :
@@ -65,6 +65,9 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({ isAuthenticated: state.user.isAuthenticated })
+const mapStateToProps = state => ({
+    isAuthenticated: state.user.isAuthenticated,
+    username: state.user.username
+})
 
 export default withRouter(connect(mapStateToProps)(App));
