@@ -7,6 +7,14 @@ import { ReactComponent as Logo } from '../../logo.svg';
 import './style.css';
 
 class Login extends React.Component {
+    state = { referer: null }
+    componentWillMount() {
+        let referer = this.props.history.location.state ? this.props.history.location.state.referer : '/';
+        if (referer === '/login')
+            referer = '/'
+        this.setState({ referer })
+    }
+
     render() {
         const { dispatch, isFetching, error, unauthorized } = this.props;
         return (
@@ -23,7 +31,12 @@ class Login extends React.Component {
                                 isFetching={isFetching}
                                 errorMessage={(unauthorized && 'Contrasenya incorrecta')
                                     || (error && 'Hi ha hagut un problema')}
-                                onSubmit={values => dispatch(login(values.username, values.password, this.props.history))} />
+                                onSubmit={values => dispatch(login(
+                                    values.username,
+                                    values.password,
+                                    () => {
+                                        this.props.history.push(this.state.referer)
+                                    }))} />
                         </Col>
                     </Row>
                 </Layout.Content>

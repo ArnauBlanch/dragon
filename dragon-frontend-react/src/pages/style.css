@@ -1,0 +1,28 @@
+.trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+  
+.trigger:hover {
+    color: #1890ff;
+}
+
+.logo {
+    text-align: center;
+    line-height: 32px;
+    padding: 15px;
+}
+.logo svg {
+    height: 32px;
+    vertical-align: middle;
+}
+.logo span {
+    margin-left: 12px;
+    vertical-align: middle;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 600;
+}

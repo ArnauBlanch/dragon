@@ -2,12 +2,12 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const AuthenticatedRoute = ({ component, isAuthenticated, ...routeProps }) => {
+const AuthenticatedRoute = ({ isAuthenticated, ...routeProps }) => {
     return (
         <Route
             {...routeProps}
             render={() => (isAuthenticated ?
-                component() :
+                <routeProps.component/> :
                 <Redirect to={{
                     pathname: '/login',
                     state: { referer: routeProps.path }
