@@ -1,15 +1,17 @@
 import React from 'react';
-import { Layout, Icon, Drawer } from 'antd';
+import { Layout, Icon } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import BookListPage from './Books/BookListPage';
 import ListShopsPage from './Shops/ListShopsPage';
-import SiderMenu from '../components/SiderMenu';
+import MobileDrawer from '../components/MobileDrawer';
 import { Route } from 'react-router-dom';
 import Media from 'react-media';
 
 import './style.css';
-const { Header, Footer } = Layout;
+import MobileHeader from '../components/MobileHeader';
+import DesktopHeader from '../components/DesktopHeader';
+const { Footer } = Layout;
 
 const routes = [
     <Route key="books" path="/books" component={BookListPage} />,
@@ -17,8 +19,8 @@ const routes = [
 ];
 
 class App extends React.Component {
-    state = { collapsed: false }
-    toggle = () => this.setState({ collapsed: !this.state.collapsed })
+    state = { showSideMenu: false }
+    toggleSideMenu = () => this.setState({ showSideMenu: !this.state.showSideMenu })
 
     render() {
         if (!this.props.isAuthenticated) {
@@ -29,43 +31,27 @@ class App extends React.Component {
                 }} />
             )
         }
-        const selectedKeys = [this.props.location.pathname]
+        const pathParts = this.props.location.pathname.split('/')
+        const currentPath = pathParts.length >= 2 && pathParts[1] !== '' ? pathParts[1] : 'home'
         return (
             <Layout style={{ height: '100vh' }}>
-                <Media query="(max-width: 599px)">
-                    { matches => 
-                        matches ? (
-                            <Drawer
-                                placement="left"
-                                closable={false}
-                                mask={true}
-                                maskClosable={true}
-                                visible={this.state.collapsed}
-                                onClose={() => this.setState({ collapsed: false })}
-                                width="fit-content"
-                                bodyStyle={{
-                                    padding: 0,
-                                    height: '100%'
-                                }}>
-                                <SiderMenu
-                                    handleLinkClick={() => this.setState({ collapsed: false })}
-                                    selectedKeys={selectedKeys} />
-                            </Drawer>
-                        ) : (
-                            <SiderMenu
-                                selectedKeys={selectedKeys}
-                                onCollapse={collapsed => this.setState({ collapsed })}
-                                collapsed={this.state.collapsed} />
-                        ) }
-                    </Media>
+                <Media query="(max-width: 599px)" onChange={() => this.setState({ showSideMenu: false })}>
+                    <MobileDrawer
+                        show={this.state.showSideMenu}
+                        handleClose={() => this.setState({ showSideMenu: false })}
+                        currentPath={currentPath} />
+                </Media>
                 <Layout>
-                    <Header style={{ background: '#fff', padding: 0 }}>
-                        <Icon
-                            className="trigger"
-                            onClick={this.toggle}
-                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-                    </Header>
-                    {routes}
+                    <Media query="(max-width: 599px)">
+                        { matches => matches ?
+                            <MobileHeader showSideMenu={this.state.showSideMenu} toggleSideMenu={this.toggleSideMenu} />
+                            :
+                            <DesktopHeader currentPath={currentPath} /> 
+                        }
+                    </Media>
+                    <div style={{ marginTop: 64 }}>
+                        {routes}
+                    </div>
                     <Footer style={{ textAlign: 'center' }}>
                         Agrupament Escolta i Guia Pinya de Rosa  © {new Date().getFullYear()}
                         <br/><span style={{ fontSize: 13 }}>Made with ❤ by&nbsp;
