@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import BookListPage from './Books/BookListPage';
 import ListShopsPage from './Shops/ListShopsPage';
+import ShopPage from './Shops/ShopPage';
 import MobileDrawer from '../components/MobileDrawer';
 import { Route } from 'react-router-dom';
 import Media from 'react-media';
@@ -15,7 +16,8 @@ const { Footer } = Layout;
 
 const routes = [
     <Route key="books" path="/books" component={BookListPage} />,
-    <Route key="shops" path="/shops" component={ListShopsPage} />
+    <Route key="shops" exact path="/shops" component={ListShopsPage} />,
+    <Route key="shop" path="/shops/:shopId" component={ShopPage} />
 ];
 
 class App extends React.Component {

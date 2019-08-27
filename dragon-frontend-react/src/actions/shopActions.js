@@ -1,35 +1,71 @@
-export const SHOPS_LIST_REQUESTED = 'SHOPS_LIST_REQUESTED';
-export const SHOPS_LIST_RECEIVED = 'SHOPS_LIST_RECEIVED';
-export const SHOPS_LIST_ERROR = 'SHOPS_LIST_ERROR';
+export const GET_SHOP_LIST_REQUESTED = 'GET_SHOP_LIST_REQUESTED';
+export const GET_SHOP_LIST_SUCCESS = 'GET_SHOP_LIST_SUCCESS';
+export const GET_SHOP_LIST_FAILURE = 'GET_SHOP_LIST_FAILURE';
 
-const shopsListRequested = () => {
-    return { type: SHOPS_LIST_REQUESTED }
+export const GET_SHOP_REQUESTED = 'GET_SHOP_REQUESTED';
+export const GET_SHOP_SUCCESS = 'GET_SHOP_SUCCESS';
+export const GET_SHOP_FAILURE = 'GET_SHOP_FAILURE';
+
+const getShopListRequested = () => {
+    return { type: GET_SHOP_LIST_REQUESTED }
 }
 
-const shopsListReceived = shops => {
-    return { type: SHOPS_LIST_RECEIVED, shops }
+const getShopListSuccess = shops => {
+    return { type: GET_SHOP_LIST_SUCCESS, shops }
 }
 
-const shopsListError = err => {
+const getShopListFailure = err => {
     console.error(err)
-    return { type: SHOPS_LIST_ERROR }
+    return { type: GET_SHOP_LIST_FAILURE }
 }
 
-export const fetchShops = () => {
+const getShopRequested = id => {
+    return { type: GET_SHOP_REQUESTED, id }
+}
+
+const getShopSuccess = shop => {
+    return { type: GET_SHOP_SUCCESS, shop }
+}
+
+const getShopFailure = (err) => {
+    console.error(err)
+    return { type: GET_SHOP_FAILURE }
+}
+
+export const getShopList = () => {
     return (dispatch, getState) => {
-        dispatch(shopsListRequested());
+        dispatch(getShopListRequested());
         return fetch(`${process.env.REACT_APP_API_URL}/shops`, {
             headers: { 'X-Functions-Key': getState().user.apiKey }
         })
             .then(response => {
                 if (response.ok) {
                     response.json()
-                        .then(json => dispatch(shopsListReceived(json)))
-                        .catch(err => dispatch(shopsListError(err)))
+                        .then(json => dispatch(getShopListSuccess(json)))
+                        .catch(err => dispatch(getShopListFailure(err)))
                 } else {
-                    dispatch(shopsListError(response.statusText))
+                    dispatch(getShopListFailure(response.statusText))
                 }
             })
-            .catch(err => dispatch(shopsListError(err)))
+            .catch(err => dispatch(getShopListFailure(err)))
+    }
+}
+
+export const getShop = shopId => {
+    return (dispatch, getState) => {
+        dispatch(getShopRequested(shopId));
+        return fetch(`${process.env.REACT_APP_API_URL}/shops/${shopId}`, {
+            headers: { 'X-Functions-Key': getState().user.apiKey }
+        })
+            .then(response => {
+                if (response.ok) {
+                    response.json()
+                        .then(json => dispatch(getShopSuccess(json)))
+                        .catch(err => dispatch(getShopFailure(err)))
+                } else {
+                    dispatch(getShopFailure(response.statusText))
+                }
+            })
+            .catch(err => dispatch(getShopFailure(err)))
     }
 }

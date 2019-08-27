@@ -3,7 +3,7 @@ import { Layout, PageHeader, Table } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Media from 'react-media';
-import { fetchShops } from '../../actions';
+import { getShopList } from '../../actions';
 
 const routes = [
     { path: 'shops', breadcrumbName: 'Botigues' },
@@ -17,22 +17,18 @@ const columns = [
 
 class ListShopsPage extends React.Component {
     componentDidMount() {
-        this.props.dispatch(fetchShops());
+        this.props.dispatch(getShopList());
     }
 
     render() {
         return (
             <React.Fragment>
-                <div style={{ width: '100%', background: '#fff' }}>
-                    <Media query="(max-width: 799px)">
-                        { matches => 
-                            <PageHeader
-                                title="Llista de botigues"
-                                breadcrumb={{ routes }}
-                                style={{ maxWidth: 1200, margin: 'auto', paddingLeft: matches ? 24 : 0 }} />
-                        }
-                    </Media>
-                </div>
+                    <div style={{ width: '100%', background: '#fff' }}>
+                        <PageHeader
+                            title="Llista de botigues"
+                            breadcrumb={{ routes }}
+                            style={{ maxWidth: 1200, margin: 'auto' }} />
+                    </div>
                 <Layout.Content style={{ margin: '24px auto 24px auto', background: '#fff', padding: 24, maxWidth: '1200px' }}>
                     <Media query="(min-width: 800px)">
                         { matches => {

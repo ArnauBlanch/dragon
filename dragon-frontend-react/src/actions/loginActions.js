@@ -3,7 +3,7 @@ import { setUser } from './userActions';
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGIN_UNAUTHORIZED = 'LOGIN_UNAUTHORIZED';
 
 const loginRequested = () => {
     return { type: LOGIN_REQUESTED }
@@ -17,13 +17,13 @@ const loginSuccess = (username, apiKey) => {
     return { type: LOGIN_SUCCESS }
 }
 
-const loginFailure = () => {
+const loginFailure = err => {
+    console.error(err)
     return { type: LOGIN_FAILURE }
 }
 
-const loginError = (err) => {
-    console.error(err)
-    return { type: LOGIN_ERROR }
+const loginUnauthorized = () => {
+    return { type: LOGIN_UNAUTHORIZED }
 }
 
 export const login = (username, apiKey, redirectToReferer) => {
@@ -39,11 +39,11 @@ export const login = (username, apiKey, redirectToReferer) => {
                     redirectToReferer();
                     window.scrollY(0);
                 } else if (response.status === 401) {
-                    dispatch(loginFailure());
+                    dispatch(loginUnauthorized());
                 } else {
-                    dispatch(loginError());
+                    dispatch(loginFailure(response.statusText));
                 }
             })
-            .catch(err => dispatch(loginError(err)))
+            .catch(err => dispatch(loginFailure(err)))
     }
 }

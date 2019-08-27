@@ -1,4 +1,4 @@
-import { LOGIN_REQUESTED, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_ERROR } from "../actions/loginActions";
+import { LOGIN_REQUESTED, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_UNAUTHORIZED } from "../actions/loginActions";
 
 const loginReducer = (
     state = {
@@ -12,9 +12,9 @@ const loginReducer = (
             return { ...state, isFetching: true, success: false, unauthorized: false, error: false }
         case LOGIN_SUCCESS:
             return { ...state, isFetching: false, success: true }
-        case LOGIN_FAILURE:
+        case LOGIN_UNAUTHORIZED:
             return { ...state, isFetching: false, unauthorized: true }
-        case LOGIN_ERROR:
+        case LOGIN_FAILURE:
             return { ...state, isFetching: false, error: true }
         default:
             return state
