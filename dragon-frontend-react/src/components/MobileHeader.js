@@ -25,7 +25,7 @@ const MobileHeader = ({ showSideMenu, toggleSideMenu, username, dispatch }) => (
             className="trigger"
             onClick={toggleSideMenu}
             type={showSideMenu ? 'menu-unfold' : 'menu-fold'}
-            style={{ padding: 10, fontSize: '18px' }} />
+            style={{ paddingLeft: 5, fontSize: '18px', lineHeight: '64px' }} />
         <UserButton
             isMobile={true}
             username={username}
