@@ -26,5 +26,7 @@
     <Parameter name="CreateShopEndpoint" value="/CreateShop" />
     <Parameter name="UpdateShopEndpoint" value="/UpdateShop?shop={0}" />
     <Parameter name="DeleteShopEndpoint" value="/DeleteShop?shop={0}" />
+    <Parameter name="ActivateShopEndpoint" value="/ActivateShop?shop={0}" />
+    <Parameter name="DeactivateShopEndpoint" value="/DeactivateShop?shop={0}" />
   </TestRunParameters>
 </RunSettings>

@@ -14,6 +14,8 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
         private static readonly string createShopEndpoint = TestContext.Parameters["CreateShopEndpoint"];
         private static readonly string updateShopEndpoint = TestContext.Parameters["UpdateShopEndpoint"];
         private static readonly string deleteShopEndpoint = TestContext.Parameters["DeleteShopEndpoint"];
+        private static readonly string activateShopEndpoint = TestContext.Parameters["ActivateShopEndpoint"];
+        private static readonly string deactivateShopEndpoint = TestContext.Parameters["DeactivateShopEndpoint"];
 
 
         public static IRestRequest GetShop(string shop)
@@ -60,6 +62,26 @@ namespace Dragon.Serverless.API.IntegrationTests.Helpers
         {
             var resource = string.Format(deleteShopEndpoint, shopName);
             var request = new RestRequest(resource, Method.DELETE, DataFormat.Json)
+                .WithAuth();
+
+            return request;
+        }
+
+        public static IRestRequest ActivateShop(string shopName, bool? force)
+        {
+            var resource = string.Format(activateShopEndpoint, shopName);
+            var request = new RestRequest(resource, Method.POST, DataFormat.Json)
+                .WithAuth();
+            if (force.HasValue)
+                request = request.AddQueryParameter("force", force.Value.ToString());
+
+            return request;
+        }
+
+        public static IRestRequest DeactivateShop(string shopName)
+        {
+            var resource = string.Format(deactivateShopEndpoint, shopName);
+            var request = new RestRequest(resource, Method.POST, DataFormat.Json)
                 .WithAuth();
 
             return request;

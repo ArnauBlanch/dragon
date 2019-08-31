@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dragon.Application.Services.Contracts;
+using Dragon.Domain.Enums;
 using Dragon.Domain.Models;
 using Dragon.Domain.Repository;
 
@@ -39,9 +40,9 @@ namespace Dragon.Application.Services.Implementations
             return result;
         }
 
-        public async Task<IList<Shop>> GetAllAsync()
+        public async Task<IList<Shop>> GetAllAsync(bool? isActive)
         {
-            var result = await this.shopRepository.GetAllAsync();
+            var result = await this.shopRepository.GetAllAsync(isActive);
             return result;
 
         }
@@ -55,6 +56,18 @@ namespace Dragon.Application.Services.Implementations
         public async Task<Shop> UpdateAsync(Shop shop)
         {
             var result = await this.shopRepository.UpdateAsync(shop);
+            return result;
+        }
+
+        public async Task<OperationResult> ActivateAsync(string id, bool force = false)
+        {
+            var result = await this.shopRepository.ActivateAsync(id, force);
+            return result;
+        }
+
+        public async Task<bool> DeactivateAsync(string id)
+        {
+            var result = await this.shopRepository.DeactivateAsync(id);
             return result;
         }
     }
