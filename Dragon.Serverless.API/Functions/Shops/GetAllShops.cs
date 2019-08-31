@@ -27,7 +27,12 @@ namespace Dragon.Serverless.API.Functions.Shops
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req)
         {
-            var shops = await this.shopAppService.GetAllAsync();
+            bool hasIsActiveParam = req.Query.ContainsKey("isActive");
+            bool isActive = false;
+            if (hasIsActiveParam && !bool.TryParse(req.Query["isActive"], out isActive))
+                return new BadRequestResult();
+
+            var shops = await this.shopAppService.GetAllAsync(hasIsActiveParam ? (bool?)isActive : null);
 
             var result = shops.Select(x => this.shopMapper.Convert(x));
 

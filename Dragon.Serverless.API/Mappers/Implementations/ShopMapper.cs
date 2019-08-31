@@ -31,6 +31,7 @@ namespace Dragon.Serverless.API.Mappers.Implementations
             {
                 Id = source.Id,
                 Name = source.Name,
+                IsActive = source.IsActive,
                 Description = source.Description
             };
 

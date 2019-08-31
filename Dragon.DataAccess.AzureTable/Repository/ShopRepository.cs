@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Dragon.Domain.Repository;
 using Dragon.Serverless.Domain.Configuration;
 using System.Linq;
+using Dragon.Domain.Enums;
 
 namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 {
@@ -26,10 +27,12 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             this.shopEntityMapper = shopEntityMapper ?? throw new ArgumentNullException(nameof(shopEntityMapper));
         }
 
-        public async Task<IList<Shop>> GetAllAsync()
+        public async Task<IList<Shop>> GetAllAsync(bool? isActive)
         {
             var retrieved = await this.RetrieveEntityListByPartitionKeyAsync("shops");
-            var result = retrieved.Select(x => this.shopEntityMapper.Convert(x)).ToList();
+            var result = retrieved
+                .Where(x => !isActive.HasValue || x.IsActive == x.IsActive)
+                .Select(x => this.shopEntityMapper.Convert(x)).ToList();
 
             return result;
         }
@@ -79,5 +82,38 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
             await this.DeleteEntityAsync(retrieved);
             return true;
         }
+
+        public async Task<OperationResult> ActivateAsync(string id, bool force)
+        {
+            var allShops = await this.RetrieveEntityListByPartitionKeyAsync("shops");
+            var shop = allShops.FirstOrDefault(x => x.RowKey == id);
+            if (shop == null)
+                return OperationResult.NotFound;
+
+            var alreadyActive = allShops.FirstOrDefault(x => x.IsActive);
+            if (alreadyActive != null && alreadyActive != shop)
+            {
+                if (!force)
+                    return OperationResult.Invalid;
+
+                alreadyActive.IsActive = false;
+                await this.InsertOrMergeEntityAsync(alreadyActive);
+            }
+
+            shop.IsActive = true;
+            await this.InsertOrMergeEntityAsync(shop);
+            return OperationResult.Done;
+        }
+
+        public async Task<bool> DeactivateAsync(string id)
+        {
+            var retrieved = await this.RetrieveEntityAsync("shops", id);
+            if (retrieved == null)
+                return false;
+
+            retrieved.IsActive = false;
+            await this.InsertOrMergeEntityAsync(retrieved);
+            return true;
+        } 
     }
 }

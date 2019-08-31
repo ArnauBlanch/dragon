@@ -6,6 +6,7 @@ using System.Net;
 
 namespace Dragon.Serverless.API.IntegrationTests.Shops
 {
+    [Order(8)]
     public class GetShop
     {
         private readonly string baseUrl = TestContext.Parameters["ApiBaseUrl"];

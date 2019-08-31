@@ -15,6 +15,7 @@ namespace Dragon.DataAccess.AzureTable.Mappers.Implementations
             {
                 Id = source.RowKey,
                 Name = source.Name,
+                IsActive = source.IsActive,
                 Description = source.Description
             };
 
@@ -31,6 +32,7 @@ namespace Dragon.DataAccess.AzureTable.Mappers.Implementations
                 PartitionKey = "shops",
                 RowKey = source.Id,
                 Name = source.Name,
+                IsActive = source.IsActive,
                 Description = source.Description
             };
 
