@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Layout } from 'antd';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { login } from '../../actions';
 import LoginForm from '../../components/LoginForm';
 import { ReactComponent as Logo } from '../../logo.svg';
@@ -16,7 +17,7 @@ class Login extends React.Component {
     }
 
     render() {
-        const { dispatch, isFetching, error, unauthorized } = this.props;
+        const { t, dispatch, isFetching, error, unauthorized } = this.props;
         return (
             <Layout style={{ height: '100vh' }}>
                 <Layout.Content className="login-layout">
@@ -25,12 +26,12 @@ class Login extends React.Component {
                             <div className="login-logo">
                                 <Logo /><span>Dragon</span>
                             </div>
-                            <p className="login-subtitle">Plataforma de gestió de vendes de llibres</p>
+                            <p className="login-subtitle">{t('app.description')}</p>
 
                             <LoginForm 
                                 isFetching={isFetching}
-                                errorMessage={(unauthorized && 'Contrasenya incorrecta')
-                                    || (error && 'Hi ha hagut un problema')}
+                                errorMessage={(unauthorized && t('login.bad-password'))
+                                    || (error && t('login.error'))}
                                 onSubmit={values => dispatch(login(
                                     values.username,
                                     values.password,
@@ -47,4 +48,4 @@ class Login extends React.Component {
 
 const mapStateToProps = state => state.login
 
-export default connect(mapStateToProps)(Login)
+export default withTranslation()(connect(mapStateToProps)(Login))

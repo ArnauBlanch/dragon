@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Button, Icon, Input, Alert } from 'antd';
+import { withTranslation } from 'react-i18next';
 
 class LoginForm extends React.Component {
     handleSubmit = e => {
@@ -12,7 +13,7 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { form: { getFieldDecorator }, t } = this.props;
         return (
             <Form onSubmit={this.handleSubmit}>
                 {this.props.errorMessage &&
@@ -20,23 +21,23 @@ class LoginForm extends React.Component {
 
                 <Form.Item>
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: 'Sisplau, escriu el teu nom' }]
+                        rules: [{ required: true, message: t('login.empty-name-message') }]
                     })(
                         <Input
                             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} 
-                            placeholder="Nom" />
+                            placeholder={t('login.name')} />
                     )}
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('password', {
-                        rules: [{ required: true, message: 'Sisplau, escriu la contrasenya' }],
+                        rules: [{ required: true, message: t('login.empty-password-message') }],
                         errors: [new Error('test error')],
                         validateStatus: 'error'
                     })(
                         <Input
                             prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                             type="password"
-                            placeholder="Contrasenya" />
+                            placeholder={t('login.password')} />
                     )}
                 </Form.Item>
                 
@@ -45,11 +46,11 @@ class LoginForm extends React.Component {
                     loading={this.props.isFetching}
                     htmlType="submit"
                     className="login-form-button">
-                    Inicia sessió
+                    {t('login.log-in')}
                 </Button>
             </Form>
         )
     }
 }
 
-export default Form.create({ name: 'login' })(LoginForm)
+export default Form.create({ name: 'login' })(withTranslation()(LoginForm))
