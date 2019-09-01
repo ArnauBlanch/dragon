@@ -1,49 +1,97 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PageHeader, Layout } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { PageHeader, Tag, Button, Popconfirm, Menu, Dropdown, Icon, Modal } from 'antd';
+import { withTranslation } from 'react-i18next';
 import Media from 'react-media';
-import { getShop } from '../../actions';
+import ShopFormModal from '../../components/ShopFormModal';
+import { getShop, editShop, deleteShop, activateShop, deactivateShop } from '../../actions';
+
+const DeleteButton = ({ t, action }) => (
+    <Popconfirm
+        placement="bottomRight"
+        title={t('shops.delete-confirmation')}
+        onConfirm={action}>
+        <Button type="danger" icon="delete">{t('shops.delete')}</Button>
+    </Popconfirm>
+)
+
+const buttons = ({ t, data, dispatch, ...restProps }, handleEdit) => [
+    <Button key="3" icon="poweroff" onClick={() => dispatch((data.isActive ? deactivateShop : activateShop)(data.id, t))}>
+        {data.isActive ? t('shops.deactivate') : t('shops.activate')}
+    </Button>,
+    <Button key="2" type="primary" icon="edit" onClick={handleEdit}>{t('shops.edit')}</Button>,
+    <DeleteButton key="1" t={t} action={() => dispatch(deleteShop(data.id, t, restProps.history.push))} />
+]
+
+const DeleteModal = ({ t, dispatch, data: { id }, handleClose, history }) => <Modal
+    onOk={() => {
+        dispatch(deleteShop(id, t, history.push))
+        handleClose()
+    }}
+    onCancel={handleClose}
+    closable={false}visible={true}>
+    {t('shops.delete-confirmation')}
+</Modal>
+
+const moreDropdown = ({ t, data, dispatch }, handleEdit, confirmDelete) =>
+    <Dropdown placement="bottomRight" overlay={
+        <Menu>
+            <Menu.Item onClick={() => dispatch((data.isActive ? deactivateShop : activateShop)(data.id, t))}>
+                <Icon type="poweroff"/> {data.isActive ? t('shops.deactivate') : t('shops.activate')}
+            </Menu.Item>
+            <Menu.Item onClick={handleEdit}><Icon type="edit"/>{t('shops.edit')}</Menu.Item>
+            <Menu.Item onClick={confirmDelete}><Icon type="delete"/>{t('shops.delete')}</Menu.Item>
+        </Menu>
+    }>
+        <Button><Icon type="ellipsis"/></Button>
+    </Dropdown>
 
 class ShopPage extends React.Component {
+    state = { showEditModal: false, showDeleteModal: false }
     componentDidMount() {
         this.props.dispatch(getShop(this.props.match.params.shopId))
     }
 
     render() {
-        const { id, isFetching, data, error } = this.props;
+        const { t, data, edit, dispatch } = this.props;
         return (
             <React.Fragment>
+                <Media query="(min-width: 800px)">
+                { matches =>
                 <div style={{ width: '100%', background: '#fff' }}>
-                    <Media query="(min-width: 1200px)">
-                        { matches => 
-                            <PageHeader
-                            title={'Botiga'}
-                                subTitle={data ? data.name : ''}
-                                breadcrumb={{  }}
-                                style={{ maxWidth: 1200, margin: 'auto' }} />
-                        }
-                    </Media>
-                </div>
-                <Layout.Content style={{ margin: '24px auto 24px auto', background: '#fff', padding: 24, maxWidth: '1200px' }}>
-                    {/*<Media query="(min-width: 800px)">
-                        { matches => {
-                            let columnsToRender = [...columns]
-                            if (matches)
-                                columnsToRender.push({ title: 'Descripció', dataIndex: 'description', key: 'description' })
-
-                            return (<Table
-                                columns={columnsToRender}
-                                style={{ height: '100%' }}
-                                loading={this.props.isFetching}
-                                dataSource={this.props.data.map(x => ({ ...x, key: x.id }))} />)
-                        }}
-                    </Media>*/}
-                </Layout.Content>
+                    <PageHeader
+                        title={t('shops.shop')}
+                        onBack={() => this.props.history.push('/shops')}
+                        subTitle={data ? data.name : ''}
+                        tags={data && (data.isActive ?
+                            <Tag color="green">{t('shops.active')}</Tag> :
+                            <Tag>{t('shops.inactive')}</Tag>
+                        )}
+                        extra={data && (false ? buttons(this.props, () => this.setState({ showEditModal: true })) :
+                            moreDropdown(this.props,
+                                () => this.setState({ showEditModal: true }),
+                                () => this.setState({ showDeleteModal: true })))}
+                        style={{ maxWidth: 1200, margin: 'auto' }}>
+                        {data && (data.description || '')}
+                    </PageHeader>
+                    <ShopFormModal
+                        isEdition={true}
+                        formState={edit}
+                        shop={data}
+                        visible={this.state.showEditModal}
+                        handleSubmit={shop => dispatch(editShop(shop, t))}
+                        handleClose={() => this.setState({ showEditModal: false })} />
+                    { !matches && this.state.showDeleteModal && data && 
+                        <DeleteModal {...this.props}
+                            handleClose={() => this.setState({ showDeleteModal: false })} /> }
+                </div>}
+                </Media>
             </React.Fragment>
         )
     }
 }
 
-const mapStateToProps = state => state.shops.shop;
+const mapStateToProps = state => ({ ...state.shops.shop, edit: state.shops.edit });
 
-export default connect(mapStateToProps)(ShopPage)
+export default withRouter(connect(mapStateToProps)(withTranslation()(ShopPage)))

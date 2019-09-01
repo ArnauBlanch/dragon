@@ -1,11 +1,12 @@
 import React from 'react';
 import { Menu, Dropdown, Icon, Avatar, Button } from 'antd';
+import { withTranslation } from 'react-i18next';
 
-const UserButton = ({ username, handleLogout, className, textColor, isMobile }) => (
+const UserButton = ({ t, username, handleLogout, className, textColor, isMobile }) => (
     <Dropdown overlay={
             <Menu style={{ marginTop: isMobile ? 0 : 5, top: 35 }}>
                 <Menu.Item key="logout" onClick={handleLogout}>
-                    <Icon type="logout" />Tanca sessió
+                    <Icon type="logout" />{t('menu.log-out')}
                 </Menu.Item>
             </Menu>
         }
@@ -23,4 +24,4 @@ const UserButton = ({ username, handleLogout, className, textColor, isMobile }) 
     </Dropdown>
 );
 
-export default UserButton;
+export default withTranslation()(UserButton);
