@@ -41,5 +41,7 @@ export default {
         'shops.empty-id': 'Please, enter an ID',
         'shops.empty-name': 'Please, enter a name',
         'shops.get-list-error': 'The shop list could not be fetched',
+        'shops.get-error': 'The shop info could not be fethed',
+        'shops.shop-not-found': 'Oops, the shop does not exist...',
     }
 }

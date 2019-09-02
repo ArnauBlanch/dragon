@@ -14,7 +14,7 @@ const getShopListSuccess = shops => {
 }
 
 const getShopListFailure = err => {
-    message.error(i18n.t('shops.get-list-error'))
+    message.error(i18n.t('shops.get-list-error', 5))
     console.error(err)
     return { type: GET_SHOP_LIST_FAILURE }
 }

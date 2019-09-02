@@ -50,7 +50,7 @@ const moreDropdown = ({ t, data, dispatch }, handleEdit, confirmDelete) =>
 class ShopPage extends React.Component {
     state = { showEditModal: false, showDeleteModal: false }
     componentDidMount() {
-        this.props.dispatch(getShop(this.props.match.params.shopId))
+        this.props.dispatch(getShop(this.props.match.params.shopId, this.props.history.push))
     }
 
     render() {
@@ -68,7 +68,7 @@ class ShopPage extends React.Component {
                             <Tag color="green">{t('shops.active')}</Tag> :
                             <Tag>{t('shops.inactive')}</Tag>
                         )}
-                        extra={data && (false ? buttons(this.props, () => this.setState({ showEditModal: true })) :
+                        extra={data && (matches ? buttons(this.props, () => this.setState({ showEditModal: true })) :
                             moreDropdown(this.props,
                                 () => this.setState({ showEditModal: true }),
                                 () => this.setState({ showDeleteModal: true })))}
