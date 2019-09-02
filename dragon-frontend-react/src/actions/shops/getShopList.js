@@ -1,3 +1,6 @@
+import { message } from 'antd';
+import i18n from 'i18next';
+
 export const GET_SHOP_LIST_REQUESTED = 'GET_SHOP_LIST_REQUESTED';
 export const GET_SHOP_LIST_SUCCESS = 'GET_SHOP_LIST_SUCCESS';
 export const GET_SHOP_LIST_FAILURE = 'GET_SHOP_LIST_FAILURE';
@@ -11,6 +14,7 @@ const getShopListSuccess = shops => {
 }
 
 const getShopListFailure = err => {
+    message.error(i18n.t('shops.get-list-error'))
     console.error(err)
     return { type: GET_SHOP_LIST_FAILURE }
 }

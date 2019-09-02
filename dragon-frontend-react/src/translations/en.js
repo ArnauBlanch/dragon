@@ -40,5 +40,6 @@ export default {
         'shops.edit-shop': 'Edit shop',
         'shops.empty-id': 'Please, enter an ID',
         'shops.empty-name': 'Please, enter a name',
+        'shops.get-list-error': 'The shop list could not be fetched',
     }
 }
