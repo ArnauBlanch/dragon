@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import i18n from '../../i18n';
 import { getShopList } from './getShopList';
 
 export const CREATE_SHOP_REQUESTED = 'CREATE_SHOP_REQUESTED';
@@ -10,12 +11,12 @@ const createShopRequested = id => {
 }
 
 const createShopSuccess = (id, t) => {
-    message.success(t('shops.create-success'), 2.5)
+    message.success(i18n.t('shops.create-success'), 2.5)
     return { type: CREATE_SHOP_SUCCESS, id }
 }
 
 const createShopFailure = (id, t, err) => {
-    message.error(t('shops.create-error'), 2.5)
+    message.error(i18n.t('shops.create-error'), 2.5)
     console.error(err)
     return { type: CREATE_SHOP_FAILURE, id }
 }

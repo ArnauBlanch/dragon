@@ -50,7 +50,7 @@ class ListShopsPage extends React.Component {
                     <ShopFormModal
                         formState={create}
                         visible={this.state.showCreateModal}
-                        handleSubmit={shop => dispatch(createShop(shop, t))}
+                        handleSubmit={shop => dispatch(createShop(shop))}
                         handleClose={() => this.setState({ showCreateModal: false })} />
                 </Layout.Content>
             </React.Fragment>

@@ -1,4 +1,5 @@
 import { message } from "antd";
+import i18n from '../../i18n';
 
 export const EDIT_SHOP_REQUESTED = 'EDIT_SHOP_REQUESTED';
 export const EDIT_SHOP_SUCCESS = 'EDIT_SHOP_SUCCESS';
@@ -8,18 +9,18 @@ const editShopRequested = id => {
     return { type: EDIT_SHOP_REQUESTED, id }
 }
 
-const editShopSuccess = (shop, t) => {
-    message.success(t('shops.edit-success'), 2.5)
+const editShopSuccess = (shop) => {
+    message.success(i18n.t('shops.edit-success'), 2.5)
     return { type: EDIT_SHOP_SUCCESS, id: shop.id, shop }
 }
 
-const editShopFailure = (id, t, err) => {
-    message.error(t('shops.edit-error'), 2.5)
+const editShopFailure = (id, err) => {
+    message.error(i18n.t('shops.edit-error'), 2.5)
     console.error(err)
     return { type: EDIT_SHOP_FAILURE, id }
 }
 
-export const editShop = (shop, t) => {
+export const editShop = (shop) => {
     return (dispatch, getState) => {
         dispatch(editShopRequested(shop.id));
         return fetch(`${process.env.REACT_APP_API_URL}/shops/${shop.id}`, {
@@ -30,12 +31,12 @@ export const editShop = (shop, t) => {
             .then(response => {
                 if (response.ok) {
                     response.json()
-                        .then(json => dispatch(editShopSuccess(json, t)))
-                        .catch(err => dispatch(editShopFailure(shop.id, t, err)))
+                        .then(json => dispatch(editShopSuccess(json)))
+                        .catch(err => dispatch(editShopFailure(shop.id, err)))
                 } else {
-                    dispatch(editShopFailure(shop.id, t, response.statusText))
+                    dispatch(editShopFailure(shop.id, response.statusText))
                 }
             })
-            .catch(err => dispatch(editShopFailure(shop.id, t, err)))
+            .catch(err => dispatch(editShopFailure(shop.id, err)))
     }
 }

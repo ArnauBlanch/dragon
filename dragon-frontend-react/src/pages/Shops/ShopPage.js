@@ -17,16 +17,16 @@ const DeleteButton = ({ t, action }) => (
 )
 
 const buttons = ({ t, data, dispatch, ...restProps }, handleEdit) => [
-    <Button key="3" icon="poweroff" onClick={() => dispatch((data.isActive ? deactivateShop : activateShop)(data.id, t))}>
+    <Button key="3" icon="poweroff" onClick={() => dispatch((data.isActive ? deactivateShop : activateShop)(data.id))}>
         {data.isActive ? t('shops.deactivate') : t('shops.activate')}
     </Button>,
     <Button key="2" type="primary" icon="edit" onClick={handleEdit}>{t('shops.edit')}</Button>,
-    <DeleteButton key="1" t={t} action={() => dispatch(deleteShop(data.id, t, restProps.history.push))} />
+    <DeleteButton key="1" t={t} action={() => dispatch(deleteShop(data.id, restProps.history.push))} />
 ]
 
 const DeleteModal = ({ t, dispatch, data: { id }, handleClose, history }) => <Modal
     onOk={() => {
-        dispatch(deleteShop(id, t, history.push))
+        dispatch(deleteShop(id, history.push))
         handleClose()
     }}
     onCancel={handleClose}
@@ -37,7 +37,7 @@ const DeleteModal = ({ t, dispatch, data: { id }, handleClose, history }) => <Mo
 const moreDropdown = ({ t, data, dispatch }, handleEdit, confirmDelete) =>
     <Dropdown placement="bottomRight" overlay={
         <Menu>
-            <Menu.Item onClick={() => dispatch((data.isActive ? deactivateShop : activateShop)(data.id, t))}>
+            <Menu.Item onClick={() => dispatch((data.isActive ? deactivateShop : activateShop)(data.id))}>
                 <Icon type="poweroff"/> {data.isActive ? t('shops.deactivate') : t('shops.activate')}
             </Menu.Item>
             <Menu.Item onClick={handleEdit}><Icon type="edit"/>{t('shops.edit')}</Menu.Item>
@@ -80,7 +80,7 @@ class ShopPage extends React.Component {
                         formState={edit}
                         shop={data}
                         visible={this.state.showEditModal}
-                        handleSubmit={shop => dispatch(editShop(shop, t))}
+                        handleSubmit={shop => dispatch(editShop(shop))}
                         handleClose={() => this.setState({ showEditModal: false })} />
                     { !matches && this.state.showDeleteModal && data && 
                         <DeleteModal {...this.props}

@@ -42,5 +42,6 @@ export default {
         'shops.edit-error': 'No s\'ha pogut editar la botiga',
         'shops.empty-id': 'Sisplau, introdueix l\'identificador',
         'shops.empty-name': 'Sisplau, introdueix el nom',
+        'shops-get-list-error': 'No s\'ha pogut obtenir la llista de botigues',
     }
 }
