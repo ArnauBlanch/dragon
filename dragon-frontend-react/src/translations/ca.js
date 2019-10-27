@@ -45,5 +45,12 @@ export default {
         'shops.get-list-error': 'No s\'ha pogut obtenir la llista de botigues',
         'shops.get-error': 'No s\'ha pogut obtenir informació sobre la botiga',
         'shops.shop-not-found': 'Sembla que la botiga que busques no existeix...',
+        'books.books': 'Llibres',
+        'books.add-book': 'Afegeix llibre',
+        'books.isbn': 'ISBN',
+        'books.title': 'Títol',
+        'books.author': 'Autor/a',
+        'table.search': 'Cerca',
+        'table.reset-search': 'Neteja',
     }
 }

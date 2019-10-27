@@ -13,7 +13,7 @@ const columns = t => [
         render: (name, shop) => <span>{name} &nbsp; {shop.isActive && <Tag color="green">{t('shops.active')}</Tag>}</span> },
 ]
 
-class ListShopsPage extends React.Component {
+class ShopListPage extends React.Component {
     state = { showCreateModal: false }
     componentDidMount() {
         this.props.dispatch(getShopList());
@@ -23,11 +23,11 @@ class ListShopsPage extends React.Component {
         const { t, create, isFetching, data, dispatch } = this.props;
         return (
             <React.Fragment>
-                    <div style={{ width: '100%', background: '#fff' }}>
-                        <PageHeader
-                            title={t('shops.shops')}
-                            style={{ maxWidth: 1200, margin: 'auto' }} />
-                    </div>
+                <div style={{ width: '100%', background: '#fff' }}>
+                    <PageHeader
+                        title={t('shops.shops')}
+                        style={{ maxWidth: 1200, margin: 'auto' }} />
+                </div>
                 <Layout.Content style={{ margin: '24px auto 24px auto', background: '#fff', padding: 24, maxWidth: '1200px' }}>
                     <Button
                         type="primary"
@@ -60,4 +60,4 @@ class ListShopsPage extends React.Component {
 
 const mapStateToProps = state => ({ ...state.shops.list, create: state.shops.create });
 
-export default connect(mapStateToProps)(withTranslation()(ListShopsPage));
+export default connect(mapStateToProps)(withTranslation()(ShopListPage));

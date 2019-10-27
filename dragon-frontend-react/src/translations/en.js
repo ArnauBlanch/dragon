@@ -43,5 +43,12 @@ export default {
         'shops.get-list-error': 'The shop list could not be fetched',
         'shops.get-error': 'The shop info could not be fethed',
         'shops.shop-not-found': 'Oops, the shop does not exist...',
+        'books.books': 'Books',
+        'books.add-book': 'Add book',
+        'books.isbn': 'ISBN',
+        'books.title': 'Title',
+        'books.author': 'Author',
+        'table.search': 'Search',
+        'table.reset-search': 'Reset',
     }
 }
