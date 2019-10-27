@@ -8,7 +8,7 @@ import LoginPage from './pages/Login/LoginPage';
 import configureStore from './configureStore';
 import './DragonApp.css';
 import BookListPage from './pages/Books/BookListPage';
-import ListShopsPage from './pages/Shops/ListShopsPage';
+import ShopListPage from './pages/Shops/ShopListPage';
 import ShopPage from './pages/Shops/ShopPage';
 
 const store = configureStore({})
@@ -23,7 +23,7 @@ const DragonApp = () => (
 					<App>
 						<Route path="/books" component={BookListPage} />
 						<Route path="/sales" render={() => <h1>Vendes</h1>} />
-						<Route path="/shops" exact component={ListShopsPage} />
+						<Route path="/shops" exact component={ShopListPage} />
 						<Route path="/shops/:shopId" component={ShopPage} />
 					</App>
 				</Switch>
