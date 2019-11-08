@@ -1,6 +1,7 @@
 export default {
     translation: {
         'app.description': 'Book sales management platform',
+        'decimals-with-comma': false,
         'login.bad-password': 'Bad password',
         'login.error': 'There was an error',
         'login.name': 'Name',
@@ -41,14 +42,20 @@ export default {
         'shops.empty-id': 'Please, enter an ID',
         'shops.empty-name': 'Please, enter a name',
         'shops.get-list-error': 'The shop list could not be fetched',
-        'shops.get-error': 'The shop info could not be fethed',
+        'shops.get-error': 'The shop info could not be fetched',
         'shops.shop-not-found': 'Oops, the shop does not exist...',
         'books.books': 'Books',
         'books.add-book': 'Add book',
         'books.isbn': 'ISBN',
         'books.title': 'Title',
         'books.author': 'Author',
+        'books.availability': 'Availability',
+        'books.price': 'Price',
+        'books.get-error': 'The book info could not be fetched',
         'table.search': 'Search',
         'table.reset-search': 'Reset',
+        'menu.scan': 'Scan',
+        'scan.scan': 'Scan code',
+        'scan.torch': 'Torch',
     }
 }

@@ -1,6 +1,7 @@
 export default {
     translation: {
         'app.description': 'Plataforma de gestió de vendes de llibres',
+        'decimals-with-comma': true,
         'login.bad-password': 'Contrasenya incorrecta',
         'login.error': 'Sembla que hi ha hagut un problema',
         'login.name': 'Nom',
@@ -50,7 +51,13 @@ export default {
         'books.isbn': 'ISBN',
         'books.title': 'Títol',
         'books.author': 'Autor/a',
+        'books.availability': 'Disponibilitat',
+        'books.price': 'Preu',
         'table.search': 'Cerca',
         'table.reset-search': 'Neteja',
+        'menu.scan': 'Escaneja',
+        'scan.scan': 'Escaneja un codi',
+        'scan.instructions': 'Per escanejar un codi, apropa el codi de barres a la càmera del teu dispositiu.',
+        'scan.torch': 'Llanterna',
     }
 }
