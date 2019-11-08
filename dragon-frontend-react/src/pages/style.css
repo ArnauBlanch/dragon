@@ -36,3 +36,6 @@
 .ant-layout {
     min-height: auto !important;
 }
+div#interactive canvas {
+    display: none;
+}
