@@ -1,22 +1,14 @@
 import React from 'react';
 import { Layout, Icon } from 'antd';
 import { connect } from 'react-redux';
-import { logOut } from '../actions';
-import UserButton from './UserButton';
-import { ReactComponent as Logo } from '../logo.svg';
+import { logOut } from '../../actions';
+import UserButton from '../UserButton';
+import { ReactComponent as Logo } from '../../logo.svg';
+import * as style from './style';
 const { Header } = Layout;
 
 const MobileHeader = ({ showSideMenu, toggleSideMenu, username, dispatch }) => (
-    <Header
-        style={{
-            background: '#fff',
-            position: 'fixed',
-            zIndex: 1,
-            width: '100%',
-            padding: 0,
-            WebkitBoxShadow: '0 2px 8px #f0f1f2',
-            boxShadow: '0 2px 8px #f0f1f2'
-        }}
+    <Header style={style.header}
     >
         <div className="logo logo-header-mini">
             <Logo />
@@ -25,16 +17,15 @@ const MobileHeader = ({ showSideMenu, toggleSideMenu, username, dispatch }) => (
             className="trigger"
             onClick={toggleSideMenu}
             type={showSideMenu ? 'menu-unfold' : 'menu-fold'}
-            style={{ paddingLeft: 5, fontSize: '18px', lineHeight: '64px' }} />
+            style={style.icon} />
         <UserButton
             isMobile={true}
             username={username}
             handleLogout={() => dispatch(logOut())}
             className="logout-button"
-            style={{ float: 'right' }} />
+            style={style.button} />
     </Header>
 );
 
 const mapStateToProps = state => state.user;
-
 export default connect(mapStateToProps)(MobileHeader);

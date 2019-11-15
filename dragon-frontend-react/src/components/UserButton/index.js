@@ -1,24 +1,28 @@
 import React from 'react';
 import { Menu, Dropdown, Icon, Avatar, Button } from 'antd';
 import { withTranslation } from 'react-i18next';
+import * as style from './style';
+import './style.css';
 
 const UserButton = ({ t, username, handleLogout, className, textColor, isMobile }) => (
-    <Dropdown overlay={
-            <Menu style={{ marginTop: isMobile ? 0 : 5, top: 35 }}>
+    <Dropdown
+        className={className}
+        overlay={
+            <Menu style={style.menu(isMobile)}>
                 <Menu.Item key="logout" onClick={handleLogout}>
-                    <Icon type="logout" />{t('menu.log-out')}
+                    <Icon type="logout" />
+                    {t('menu.log-out')}
                 </Menu.Item>
             </Menu>
         }
-        className={className}
     >
-        <Button type="link" style={{ border: 'none', lineHeight: '64px', top: -1.5, color: textColor }}>
+        <Button type="link" style={style.button(textColor)}>
             <span className="logout">
-                <Avatar icon="user" size="small" style={{ verticalAlign: 'middle', backgroundColor: '#1890ff' }} />
+                <Avatar icon="user" size="small" style={style.avatar} />
             </span>
             <div className="username">
                 {username}
-                <Icon type="down" style={{ verticalAlign: 'middle', height: '100%', marginLeft: 3, marginTop: 0, fontSize: 10 }} />
+                <Icon type="down" style={style.downIcon} />
             </div>
         </Button>
     </Dropdown>

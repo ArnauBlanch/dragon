@@ -35,17 +35,17 @@ class ShopListPage extends React.Component {
                         onClick={() => this.setState({ showCreateModal: true })}
                         style={{ marginBottom: 16 }}>{t('shops.create-shop')}</Button>
                     <Media query="(min-width: 800px)">
-                        { matches => {
-                            let columnsToRender = [...columns(t)]
-                            if (matches)
-                                columnsToRender.push({ title: t('shops.description'), dataIndex: 'description', key: 'description' })
+                    { matches => {
+                        let columnsToRender = [...columns(t)]
+                        if (matches)
+                            columnsToRender.push({ title: t('shops.description'), dataIndex: 'description', key: 'description' })
 
-                            return (<Table
-                                columns={columnsToRender}
-                                style={{ height: '100%' }}
-                                loading={isFetching}
-                                dataSource={data.map(x => ({ ...x, key: x.id }))} />)
-                        }}
+                        return (<Table
+                            columns={columnsToRender}
+                            style={{ height: '100%' }}
+                            loading={isFetching}
+                            dataSource={data.map(x => ({ ...x, key: x.id }))} />)
+                    }}
                     </Media>
                     <ShopFormModal
                         formState={create}
