@@ -1,6 +1,11 @@
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
 import { withTranslation } from 'react-i18next';
+ 
+const formItemLayout = {
+    labelCol: { xs: { span: 24 }, sm: { span: 4 } },
+    wrapperCol: { xs: { span: 24 }, sm: { span: 16 } }
+};
 
 class ShopFormModal extends React.Component {
     componentWillReceiveProps(nextProps) {
@@ -18,29 +23,14 @@ class ShopFormModal extends React.Component {
         const { t, isEdition = false, shop, formState, visible, handleClose, handleSubmit, form } = this.props;
         const { getFieldDecorator } = form;
 
-        const formItemLayout = {
-            labelCol: {
-              xs: { span: 24 },
-              sm: { span: 4 },
-            },
-            wrapperCol: {
-              xs: { span: 24 },
-              sm: { span: 16 },
-            },
-          };
+        
         return (
             <Modal
                 title={isEdition ? t('shops.edit-shop') : t('shops.create-shop')}
                 confirmLoading={formState.isFetching}
                 visible={visible}
                 closable={false}
-                onOk={() => {
-                    form.validateFields((err, values) => {
-                        if (err)
-                            return
-                        handleSubmit(values)
-                    })
-                }}
+                onOk={() => form.validateFields((err, values) => !err && handleSubmit(values))}
                 onCancel={handleClose}
             >
                 <Form {...formItemLayout}>
