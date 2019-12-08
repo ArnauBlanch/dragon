@@ -24,13 +24,13 @@ const columns = t => [
 ]
 
 class BookListPage extends React.Component {
-    state = { showCreateModal: false }
+    state = { showCreateModal: false, selection: [] }
     componentDidMount() {
         this.props.dispatch(getBookList('DevOpsTestShop'));
     }    
 
     render() {
-        const { t, isFetching, data } = this.props;
+        const { t, isFetching, data, isAdmin } = this.props;
         return (
             <React.Fragment>
                 <div style={{ width: '100%', background: '#fff' }}>
@@ -39,11 +39,20 @@ class BookListPage extends React.Component {
                         style={{ maxWidth: 1200, margin: 'auto' }} />
                 </div>
                 <Layout.Content style={{ margin: '24px auto 24px auto', background: '#fff', padding: 24, maxWidth: '1200px' }}>
-                    <Button
-                        type="primary"
-                        icon="plus"
-                        onClick={() => this.setState({ showCreateModal: true })}
-                        style={{ marginBottom: 16 }}>{t('books.add-book')}</Button>
+                    { isAdmin &&
+                        <React.Fragment>
+                            <Button
+                                type="primary"
+                                icon="plus"
+                                onClick={() => this.setState({ showCreateModal: true })}
+                                style={{ marginBottom: 16 }}>{t('books.add-book')}</Button>
+                            <Button
+                                type="danger"
+                                icon="delete"
+                                disabled={this.state.selection.length === 0}
+                                onClick={() => this.setState({ showCreateModal: true })}
+                                style={{ marginBottom: 16, marginLeft: 16 }}>{t('books.delete-books')}</Button>
+                        </React.Fragment> }
                     <Media query="(min-width: 600px)">
                         { matches => {
                             let columnsToRender = [...columns(t)]
@@ -53,6 +62,7 @@ class BookListPage extends React.Component {
                             return (
                                 <SearchableTable
                                     rowKey="isbn"
+                                    rowSelection={isAdmin && ({ onChange: selection => this.setState({ selection })})}
                                     dataSource={data}
                                     loading={isFetching}
                                     columns={columnsToRender}
@@ -66,6 +76,6 @@ class BookListPage extends React.Component {
     }
 }
 
-const mapStateToProps = state => state.books.list;
+const mapStateToProps = state => ({ ...state.books.list, isAdmin: state.user.isAdmin });
 
 export default withTranslation()(connect(mapStateToProps)(BookListPage));
