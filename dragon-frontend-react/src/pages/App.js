@@ -29,6 +29,7 @@ class App extends React.Component {
             <Layout style={{ height: '100vh' }}>
                 <Media query="(max-width: 799px)" onChange={() => this.setState({ showSideMenu: false })}>
                     <MobileDrawer
+                        isAdmin={this.props.isAdmin}
                         show={this.state.showSideMenu}
                         handleClose={() => this.setState({ showSideMenu: false })}
                         currentPath={currentPath} />

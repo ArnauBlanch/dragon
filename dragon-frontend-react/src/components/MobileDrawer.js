@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from '../logo.svg';
 const { Sider } = Layout;
 
 
-const MobileDrawer = ({ currentPath, show, handleClose}) => (
+const MobileDrawer = ({ isAdmin, currentPath, show, handleClose}) => (
     <Drawer
         placement="left"
         closable={false}
@@ -21,6 +21,7 @@ const MobileDrawer = ({ currentPath, show, handleClose}) => (
                 <Logo /><span>Dragon</span>
             </div>
             <AppMenu
+                isAdmin={isAdmin}
                 currentPath={currentPath}
                 onItemSelected={handleClose}
                 mode="inline" />

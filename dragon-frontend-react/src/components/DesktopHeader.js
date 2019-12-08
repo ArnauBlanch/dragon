@@ -7,7 +7,7 @@ import { logOut } from '../actions';
 import { ReactComponent as Logo } from '../logo.svg';
 const { Header } = Layout;
 
-const DesktopHeader = ({ dispatch, username, currentPath }) => (
+const DesktopHeader = ({ dispatch, username, isAdmin, currentPath }) => (
     <Header
         style={{
             width: '100%',
@@ -26,6 +26,7 @@ const DesktopHeader = ({ dispatch, username, currentPath }) => (
                 mode="horizontal"
                 style={{ lineHeight: '64px' }}
                 currentPath={currentPath}
+                isAdmin={isAdmin}
                 extraItems={
                 <Menu.Item key="logout" style={{ float: 'right', height: '100%', marginRight: 6, paddingRight: 0 }}>
                     <UserButton
