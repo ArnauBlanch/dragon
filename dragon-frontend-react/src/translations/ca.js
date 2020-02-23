@@ -51,7 +51,14 @@ export default {
         'books.isbn': 'ISBN',
         'books.title': 'Títol',
         'books.author': 'Autor/a',
+        'books.delete-confirmation': 'Estàs segur/a que vols eliminar la selecció?',
+        'books.create-book': 'Nou llibre',
+        'books.edit-book': 'Editar llibre',
+        'books.empty-isbn': 'Sisplau, introdueix l\'ISBN',
+        'books.empty-author': 'Sisplau, introdueix l\'autor/a',
         'table.search': 'Cerca',
         'table.reset-search': 'Neteja',
+        'yes': 'Sí',
+        'no': 'No',
     }
 }
