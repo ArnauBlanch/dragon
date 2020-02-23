@@ -7,9 +7,9 @@ import App from './pages/App';
 import LoginPage from './pages/Login/LoginPage';
 import configureStore from './configureStore';
 import './DragonApp.css';
-import BookListPage from './pages/Books/BookList';
-import ShopListPage from './pages/Shops/ShopList';
-import ShopDetailsPage from './pages/Shops/ShopDetails';
+import BookListPage from './pages/Books/BookListPage';
+import ShopListPage from './pages/Shops/ShopListPage';
+import ShopDetailsPage from './pages/Shops/ShopDetailsPage';
 
 const store = configureStore({})
 message.config({ top: 74 })
