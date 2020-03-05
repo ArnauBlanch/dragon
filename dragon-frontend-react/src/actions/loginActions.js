@@ -1,4 +1,5 @@
 import { setUser } from './userActions';
+import { saveAuthentication } from '../helpers/localStorage';
 
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -10,9 +11,7 @@ const loginRequested = () => {
 }
 
 const loginSuccess = (username, apiKey) => {
-    window.localStorage.setItem('authenticated', true);
-    window.localStorage.setItem('username', username);
-    window.localStorage.setItem('apiKey', apiKey);
+    saveAuthentication(username, apiKey);
 
     return { type: LOGIN_SUCCESS }
 }
