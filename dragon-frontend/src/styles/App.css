@@ -1,38 +1,57 @@
-.App {
+@import '~antd/dist/antd.css';
+
+div {
+  display: block;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+video {
+  max-width: 100%;
+}
+
+.logo {
   text-align: center;
+  line-height: 32px;
+  padding: 15px;
+}
+.logo svg {
+  height: 32px;
+  vertical-align: middle;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo-header-mini {
+  float: left;
+  padding-left: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo span {
+  margin-left: 12px;
+  vertical-align: middle;
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ant-layout {
+  min-height: auto !important;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+div#interactive canvas {
+  display: none;
 }
