@@ -4,6 +4,10 @@ div {
   display: block;
 }
 
+body {
+  background-color: rgb(240, 242, 245);
+}
+
 *,
 :after,
 :before {

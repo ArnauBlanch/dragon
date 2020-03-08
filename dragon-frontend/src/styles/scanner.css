@@ -1,0 +1,44 @@
+.scanner-page-header {
+  border: 1px solid rgb(235, 237, 240);
+}
+
+.scanner-desktop {
+  max-width: 800px;
+  margin: 0px auto;
+  min-height: 600px;
+}
+
+.scanner-desktop img {
+  max-width: -webkit-fill-available;
+  margin: 32px;
+}
+
+.scanner-row {
+  /*width: 100%;
+  margin: 32px auto;*/
+}
+
+.scanner-mobile {
+  text-align: center;
+  height: -webkit-fill-available;
+  margin-bottom: 80px;
+}
+
+.scanner-mobile img {
+  max-width: -webkit-fill-available;
+  max-height: 300px;
+  margin: 16px;
+}
+
+.scanner-stats {
+  margin: 16px;
+  width: -webkit-fill-available;
+}
+
+.scanner-buttons-mobile {
+  background-color: white;
+  padding: 16px;
+  position: fixed;
+  bottom: 0px;
+  width: -webkit-fill-available;
+}
