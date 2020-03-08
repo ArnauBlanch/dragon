@@ -16,6 +16,7 @@
     "antd": "^4.0.1",
     "connected-react-router": "^6.7.0",
     "i18next": "^19.3.2",
+    "quagga": "^1.0.0-beta.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-i18next": "^11.3.3",
