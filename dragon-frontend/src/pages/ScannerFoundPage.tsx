@@ -6,7 +6,7 @@ import Media from 'react-media';
 
 const ScannerFoundPage: React.FC = () => (
   <>
-    <Media query="(max-width: 575px)">
+    <Media query="(max-width: 719px)">
       <>
         <div className="scanner-mobile">
           <img alt="" src="https://images-na.ssl-images-amazon.com/images/I/71jvSNnYONL.jpg" />
@@ -14,7 +14,7 @@ const ScannerFoundPage: React.FC = () => (
           <p>
             <i>Tom Sharpe</i>
           </p>
-          <Row gutter={16} className="scanner-stats">
+          <Row className="scanner-stats">
             <Col span={12}>
               <Statistic title="Preu" value={12.75} suffix="€" />
             </Col>
@@ -37,7 +37,7 @@ const ScannerFoundPage: React.FC = () => (
         </Row>
       </>
     </Media>
-    <Media query="(min-width: 576px)">
+    <Media query="(min-width: 720px)">
       <div className="scanner-desktop">
         <Row justify="space-around" align="middle" className="scanner-row">
           <Col span={10}>

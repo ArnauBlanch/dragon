@@ -16,7 +16,7 @@ class AppLayout extends React.Component<Props> {
         <Header />
         <div className="app-container">
           {children}
-          <Media query="(min-width: 576px)">
+          <Media query="(min-width: 720px)">
             <Footer />
           </Media>
         </div>

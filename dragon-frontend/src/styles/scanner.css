@@ -1,7 +1,3 @@
-.scanner-page-header {
-  border: 1px solid rgb(235, 237, 240);
-}
-
 .scanner-desktop {
   max-width: 800px;
   margin: 0px auto;
@@ -11,11 +7,6 @@
 .scanner-desktop img {
   max-width: -webkit-fill-available;
   margin: 32px;
-}
-
-.scanner-row {
-  /*width: 100%;
-  margin: 32px auto;*/
 }
 
 .scanner-mobile {
@@ -31,8 +22,8 @@
 }
 
 .scanner-stats {
-  margin: 16px;
   width: -webkit-fill-available;
+  margin-bottom: 32px;
 }
 
 .scanner-buttons-mobile {
