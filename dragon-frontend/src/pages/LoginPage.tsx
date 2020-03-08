@@ -4,7 +4,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { Layout, Row, Col } from 'antd';
 import '../styles/login.css';
 import { ReactComponent as Logo } from '../styles/logo.svg';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../containers/LoginForm';
 
 type Props = WithTranslation;
 
