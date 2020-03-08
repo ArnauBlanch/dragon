@@ -33,3 +33,33 @@
   bottom: 0px;
   width: -webkit-fill-available;
 }
+
+video {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 64px;
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: inherit;
+}
+
+.ant-btn-circle.ant-btn-lg,
+.ant-btn-circle-outline.ant-btn-lg .camera-button {
+  position: fixed;
+  top: 64px;
+  right: 0px;
+  margin: 16px;
+  width: 48px;
+  height: 48px;
+}
+
+.camera-button svg {
+  width: 32px;
+  fill: rgba(0, 0, 0, 0.65);
+}
+
+.camera-button svg:hover {
+  fill: #1890ff;
+}

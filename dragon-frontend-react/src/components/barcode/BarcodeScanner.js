@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Quagga from "quagga";
 import getConfig from './config';
 import { withTranslation } from "react-i18next";
 

@@ -74,7 +74,7 @@ class ScanBookPage extends React.Component {
             id="camera-container"
             style={{ margin: "auto", textAlign: "center" }}
           >
-            {currentDevice !== null && (
+            {currentDevice !== undefined && (
               <BarcodeScanner
                 containerId="camera-container"
                 onDetected={this.searchBook}
