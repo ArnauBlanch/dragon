@@ -13,13 +13,14 @@ export const getDevices = () =>
     });
   });
 
-export const getConfig = (deviceId: string) => ({
-  frequency: 10,
+export const getConfig = (deviceId: string, target: string) => ({
+  frequency: 5,
   numOfWorkers: 4,
   locate: true,
   inputStream: {
     name: 'Live',
     type: 'LiveStream',
+    target,
     constraints: {
       deviceId,
     },
@@ -29,25 +30,25 @@ export const getConfig = (deviceId: string) => ({
     readers: ['ean_reader'],
   },
   locator: {
-    halfSample: false,
-    patchSize: 'x-small',
+    halfSample: true,
+    patchSize: 'medium',
   },
   debug: {
-    showCanvas: false,
-    showPatches: false,
-    showFoundPatches: false,
+    showCanvas: true,
+    showPatches: true,
+    showFoundPatches: true,
     drawBoundingBox: true,
-    showFrequency: false,
-    drawScanline: false,
-    showPattern: false,
-    showSkeleton: false,
-    showLabels: false,
-    showPatchLabels: false,
-    showRemainingPatchLabels: false,
+    showFrequency: true,
+    drawScanline: true,
+    showPattern: true,
+    showSkeleton: true,
+    showLabels: true,
+    showPatchLabels: true,
+    showRemainingPatchLabels: true,
     boxFromPatches: {
-      showTransformed: false,
-      showTransformedBox: false,
-      showBB: false,
+      showTransformed: true,
+      showTransformedBox: true,
+      showBB: true,
     },
   },
 });

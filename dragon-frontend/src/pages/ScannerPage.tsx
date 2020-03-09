@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Row, Col, Spin } from 'antd';
 import { getDeviceId, changeDevice } from '../helpers/barcode';
 import BarcodeScanner from '../components/BarcodeScanner';
 import SwitchCameraIcon from '../components/SwitchCameraIcon';
@@ -15,10 +15,15 @@ class ScannerPage extends React.Component<{}, State> {
     this.state = {};
 
     this.changeDevice = this.changeDevice.bind(this);
+    this.onCodeDetected = this.onCodeDetected.bind(this);
   }
 
   componentDidMount() {
     getDeviceId().then((id) => this.setState({ currentDevice: id }));
+  }
+
+  onCodeDetected(isbn: string) {
+    this.setState({ isbn });
   }
 
   changeDevice() {
@@ -26,12 +31,13 @@ class ScannerPage extends React.Component<{}, State> {
   }
 
   render() {
+    const { isbn, currentDevice } = this.state;
     return (
       <>
-        {this.state.currentDevice && (
+        {currentDevice && !isbn && (
           <BarcodeScanner
-            deviceId={this.state.currentDevice}
-            onDetected={console.log}
+            deviceId={currentDevice}
+            onDetected={this.onCodeDetected}
             overlay={
               <Button
                 className="camera-button"
@@ -42,6 +48,20 @@ class ScannerPage extends React.Component<{}, State> {
               />
             }
           />
+        )}
+
+        {isbn && (
+          <div
+            style={{
+              height: '100vh',
+            }}
+          >
+            <Row style={{ height: 'inherit' }} justify="space-around" align="middle">
+              <Col>
+                <Spin tip="Buscant llibre..." size="large" />
+              </Col>
+            </Row>
+          </div>
         )}
       </>
     );

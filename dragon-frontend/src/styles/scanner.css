@@ -63,3 +63,13 @@ video {
 .camera-button svg:hover {
   fill: #1890ff;
 }
+
+.scanner-stats .ant-statistic-content-value-int {
+  font-size: 30px;
+}
+.scanner-stats .ant-statistic-content-value-decimal {
+  font-size: 20px;
+}
+.scanner-stats .ant-statistic-content-suffix {
+  font-size: 20px;
+}
