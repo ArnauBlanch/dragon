@@ -14,11 +14,17 @@ const ScannerSuccessPage: React.FC = () => (
           </>
         }
         extra={[
-          <Button icon={<ScanOutlined />} type="primary" key="scan">
-            Escaneja un altre llibre
-          </Button>,
-          <Button icon={<InfoCircleOutlined />} key="info">
+          <Button icon={<InfoCircleOutlined />} key="info" size="large" style={{ margin: 6 }}>
             Veure informació del llibre
+          </Button>,
+          <Button
+            icon={<ScanOutlined />}
+            type="primary"
+            key="scan"
+            size="large"
+            style={{ margin: 6 }}
+          >
+            Escaneja un altre llibre
           </Button>,
         ]}
       />

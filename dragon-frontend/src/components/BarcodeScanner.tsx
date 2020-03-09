@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { getConfig } from '../helpers/barcode';
+import { playSound } from '../helpers/sound';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Quagga = require('quagga');
@@ -12,6 +13,8 @@ class BarcodeScanner extends React.Component<Props> {
 
   scanUntilResult: any;
 
+  sound: HTMLAudioElement;
+
   constructor(props: Props) {
     super(props);
     this.createScanner = this.createScanner.bind(this);
@@ -21,6 +24,7 @@ class BarcodeScanner extends React.Component<Props> {
 
     const { deviceId } = props;
     this.createScanner(deviceId);
+    this.sound = new Audio('beep.mp3');
   }
 
   componentDidMount() {
@@ -42,8 +46,9 @@ class BarcodeScanner extends React.Component<Props> {
 
   onCodeDetected(result: any) {
     const { onDetected } = this.props;
+    this.sound.play();
+
     onDetected(result.codeResult.code);
-    console.log(result);
   }
 
   onCancel(e: Event) {
@@ -57,16 +62,13 @@ class BarcodeScanner extends React.Component<Props> {
   startScanner() {
     this.scanner.start().then(() => {
       this.scanUntilResult = this.scanner.toPromise();
-      // this.scanUntilResult.promise.then(this.onCodeDetected).catch(this.onCancel);
+      this.scanUntilResult.promise.then(this.onCodeDetected).catch(this.onCancel);
     });
   }
 
   createScanner(deviceId: string) {
-    const config = getConfig(deviceId);
-    this.scanner = Quagga.config(config).fromSource({
-      ...config.inputStream,
-      target: '.viewport',
-    });
+    const config = getConfig(deviceId, '.viewport');
+    this.scanner = Quagga.fromConfig(config);
   }
 
   render() {
