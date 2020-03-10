@@ -23,7 +23,7 @@ class BarcodeScanner extends Component {
 
   createScanner = (deviceId) => {
     const config = getConfig(deviceId)
-    this.scanner = Quagga.config(config).fromSource({
+    Quagga.init(config).fromSource({
       ...config.inputStream,
       target: ".viewport"
     });

@@ -1,4 +1,5 @@
 export enum ErrorType {
-  ApiError,
-  Unauthorized,
+  NotFound = 'Not Found',
+  ApiError = 'API Error',
+  Unauthorized = 'Unauthorized',
 }

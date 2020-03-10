@@ -45,12 +45,20 @@ video {
   max-width: inherit;
 }
 
-.ant-btn-circle.ant-btn-lg,
-.ant-btn-circle-outline.ant-btn-lg .camera-button {
+button.ant-btn.camera-button.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
   position: fixed;
   top: 64px;
   right: 0px;
-  margin: 16px;
+  margin: 12px;
+  width: 48px;
+  height: 48px;
+}
+
+button.ant-btn.torch-button.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
+  position: fixed;
+  top: 64px;
+  right: 58px;
+  margin: 12px;
   width: 48px;
   height: 48px;
 }

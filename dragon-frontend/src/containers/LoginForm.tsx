@@ -5,12 +5,12 @@ import { Form, Alert, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { FormInstance } from 'antd/lib/form';
-import { logIn as logInAction } from '../actions/login';
+import { logIn as logInAction } from '../actions/auth';
 import { RootState } from '../reducers';
 import { ErrorType } from '../models/enums';
 import '../styles/login.css';
 
-const mapStateToProps = (state: RootState) => state.login;
+const mapStateToProps = (state: RootState) => state.auth;
 const dispatchProps = { logIn: logInAction.request };
 type Props = WithTranslation & ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 

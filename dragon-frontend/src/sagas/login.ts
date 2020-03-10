@@ -1,9 +1,11 @@
 import { ActionType } from 'typesafe-actions';
 import { put, call } from 'redux-saga/effects';
-import { logIn } from '../actions/login';
+import { push } from 'connected-react-router';
+import { logIn } from '../actions/auth';
 import { ErrorType } from '../models/enums';
+import { setUserData } from '../helpers/localStorage';
 
-export default function* loginSaga(action: ActionType<typeof logIn.request>) {
+export default function* logInSaga(action: ActionType<typeof logIn.request>) {
   try {
     const { username, password } = action.payload;
     const response = (yield call(fetch, `${process.env.REACT_APP_API_URL}/checkApiKey`, {
@@ -11,8 +13,10 @@ export default function* loginSaga(action: ActionType<typeof logIn.request>) {
     })) as Response;
 
     if (response.ok) {
-      yield put(logIn.success({ username }));
-      // TODO: redirection
+      setUserData(username, password);
+
+      yield put(logIn.success());
+      yield put(push('/'));
     } else if (response.status === 401) {
       yield put(logIn.failure(ErrorType.Unauthorized));
     } else {

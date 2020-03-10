@@ -10,10 +10,8 @@ import createStore, { history } from './store';
 import LoginPage from './pages/LoginPage';
 import ScannerPage from './pages/ScannerPage';
 import ScannerSuccessPage from './pages/ScannerSuccessPage';
-import ScannerErrorPage from './pages/ScannerErrorPage';
-import ScannerLoadingPage from './pages/ScannerLoadingPage';
-import ScannerFoundPage from './pages/ScannerFoundPage';
 import AppLayout from './pages/AppLayout';
+import PrivateRoute from './components/PrivateRoute';
 
 const languages: { [lng: string]: Locale } = {
   ca: caES,
@@ -31,15 +29,14 @@ function App(): React.ReactElement {
         <ConnectedRouter history={history}>
           <Switch>
             <Route name="login" path="/login" component={LoginPage} />
-            <AppLayout>
-              <>
-                <Route name="scan" path="/scan" component={ScannerPage} />
-                <Route name="scan-success" path="/scan-success" component={ScannerSuccessPage} />
-                <Route name="scan-error" path="/scan-error" component={ScannerErrorPage} />
-                <Route name="scan-loading" path="/scan-loading" component={ScannerLoadingPage} />
-                <Route name="scan-found" path="/scan-found" component={ScannerFoundPage} />
-              </>
-            </AppLayout>
+            <PrivateRoute>
+              <AppLayout>
+                <>
+                  <Route name="scan" path="/scan" component={ScannerPage} />
+                  <Route name="scan-success" path="/scan-success" component={ScannerSuccessPage} />
+                </>
+              </AppLayout>
+            </PrivateRoute>
           </Switch>
         </ConnectedRouter>
       </ConfigProvider>
