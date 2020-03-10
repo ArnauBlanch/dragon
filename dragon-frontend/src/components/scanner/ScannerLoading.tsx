@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spin, Row, Col } from 'antd';
 
-const ScannerLoadingPage: React.FC = () => (
+const ScannerLoading: React.FC = () => (
   <div
     style={{
       backgroundColor: 'grey',
@@ -20,4 +20,4 @@ const ScannerLoadingPage: React.FC = () => (
   </div>
 );
 
-export default ScannerLoadingPage;
+export default ScannerLoading;

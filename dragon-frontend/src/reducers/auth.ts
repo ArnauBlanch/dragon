@@ -1,19 +1,20 @@
 import { createReducer } from 'typesafe-actions';
 import { ErrorType } from '../models/enums';
-import { LoginActions, logIn } from '../actions/login';
+import { AuthActions, logIn } from '../actions/auth';
+import { User } from '../models/auth';
 
-export type LoginState = {
+export type AuthState = {
   isFetching: boolean;
   success: boolean;
   error?: ErrorType;
 };
 
-const initialState: LoginState = {
+const initialState: AuthState = {
   isFetching: false,
   success: false,
 };
 
-const reducer = createReducer<LoginState, LoginActions>(initialState)
+const reducer = createReducer<AuthState, AuthActions>(initialState)
   .handleAction(logIn.request, (state) => ({
     ...state,
     isFetching: true,

@@ -1,13 +1,18 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { getConfig } from '../helpers/barcode';
-import { playSound } from '../helpers/sound';
+import { getConfig } from '../../helpers/barcode';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const Quagga = require('quagga');
 
-type Props = { deviceId: string; onDetected: (code: string) => void; overlay?: React.ReactNode };
+type Props = {
+  deviceId: string;
+  onDetected: (code: string) => void;
+  onInitialized: () => void;
+  overlay?: React.ReactNode;
+  torch?: boolean;
+};
 class BarcodeScanner extends React.Component<Props> {
   scanner: any;
 
@@ -60,7 +65,9 @@ class BarcodeScanner extends React.Component<Props> {
   }
 
   startScanner() {
+    const { onInitialized } = this.props;
     this.scanner.start().then(() => {
+      onInitialized();
       this.scanUntilResult = this.scanner.toPromise();
       this.scanUntilResult.promise.then(this.onCodeDetected).catch(this.onCancel);
     });
