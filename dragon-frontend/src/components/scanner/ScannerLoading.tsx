@@ -1,10 +1,11 @@
 import React from 'react';
 import { Spin, Row, Col } from 'antd';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
-const ScannerLoading: React.FC = () => (
+type Props = WithTranslation;
+const ScannerLoading: React.FC<Props> = ({ t }: Props) => (
   <div
     style={{
-      backgroundColor: 'grey',
       height: '100vh',
     }}
   >
@@ -14,10 +15,10 @@ const ScannerLoading: React.FC = () => (
       align="middle"
     >
       <Col>
-        <Spin tip="Buscant llibre..." size="large" />
+        <Spin tip={t('scan.searching-book')} size="large" />
       </Col>
     </Row>
   </div>
 );
 
-export default ScannerLoading;
+export default withTranslation()(ScannerLoading);
