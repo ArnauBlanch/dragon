@@ -45,22 +45,16 @@ video {
   max-width: inherit;
 }
 
-button.ant-btn.camera-button.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
-  position: fixed;
-  top: 64px;
-  right: 0px;
-  margin: 12px;
-  width: 48px;
-  height: 48px;
+.button-row {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 6px;
 }
 
-button.ant-btn.torch-button.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
-  position: fixed;
-  top: 64px;
-  right: 58px;
-  margin: 12px;
+button.ant-btn.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
   width: 48px;
   height: 48px;
+  margin: 6px;
 }
 
 .camera-button svg {

@@ -4,7 +4,7 @@ import { getPreferredDeviceId, setPreferredDeviceId } from './localStorage';
 export const getDevices = () =>
   new Promise<string[]>((resolve, reject) => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-      console.log('Cannot enumerate devices');
+      console.error('Cannot enumerate devices');
       reject();
       return;
     }
@@ -39,15 +39,15 @@ export const getConfig = (deviceId: string, target: string) => ({
 
 let devices: string[] = [];
 export const getDeviceId = async () => {
-  const ids = await getDevices();
-  devices = ids;
+  devices = await getDevices();
   const deviceId = getPreferredDeviceId();
-  if (deviceId && ids.indexOf(deviceId) !== -1) return Promise.resolve(deviceId);
-  if (ids.length > 0) {
-    setPreferredDeviceId(ids[0]);
-    return ids[0];
+  if (deviceId && devices.indexOf(deviceId) !== -1)
+    return { id: deviceId, numDevices: devices.length };
+  if (devices.length > 0) {
+    setPreferredDeviceId(devices[0]);
+    return { id: devices[0], numDevices: devices.length };
   }
-  return 'NO_CAMERA';
+  return { id: 'NO_CAMERA', numDevices: 0 };
 };
 
 export const changeDevice = async () => {
@@ -68,7 +68,6 @@ export const getActiveTrack = (): MediaStreamTrack | undefined => {
   if (video && video.srcObject) {
     const tracks = (video.srcObject as MediaStream).getVideoTracks();
     if (tracks && tracks.length) {
-      console.log(tracks);
       return tracks[0];
     }
   }

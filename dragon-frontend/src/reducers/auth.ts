@@ -1,7 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { ErrorType } from '../models/enums';
-import { AuthActions, logIn } from '../actions/auth';
-import { User } from '../models/auth';
+import { AuthActions, logIn, logOut } from '../actions/auth';
 
 export type AuthState = {
   isFetching: boolean;
@@ -26,6 +25,12 @@ const reducer = createReducer<AuthState, AuthActions>(initialState)
     ...state,
     isFetching: false,
     error: action.payload,
+  }))
+  .handleAction(logOut, (state) => ({
+    ...state,
+    isFetching: false,
+    success: false,
+    error: undefined,
   }));
 
 export default reducer;

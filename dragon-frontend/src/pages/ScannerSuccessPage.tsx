@@ -1,5 +1,5 @@
 import React from 'react';
-import { Result, Row, Layout, Col, Button } from 'antd';
+import { Result, Row, Col, Button } from 'antd';
 import { ScanOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 const ScannerSuccessPage: React.FC = () => (

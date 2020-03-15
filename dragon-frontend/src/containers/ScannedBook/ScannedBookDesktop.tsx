@@ -2,12 +2,13 @@ import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { ScanOutlined, EuroOutlined } from '@ant-design/icons';
 import Media from 'react-media';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { Book } from '../../models/book';
 import BookStats from '../../components/scanner/BookStats';
 import '../../styles/scanner.css';
 
-type Props = { book: Book; onScan: () => void; onSell: () => void };
-const ScannerBookDesktop: React.FC<Props> = ({ book, onScan }: Props) => {
+type Props = { book: Book; onScanAgain: () => void; onSell: () => void } & WithTranslation;
+const ScannerBookDesktop: React.FC<Props> = ({ book, onScanAgain, t }: Props) => {
   return (
     <Media query="(min-width: 720px)">
       <div className="scanner-desktop">
@@ -21,13 +22,13 @@ const ScannerBookDesktop: React.FC<Props> = ({ book, onScan }: Props) => {
             <BookStats book={book} />
             <Row gutter={16}>
               <Col span={12}>
-                <Button icon={<ScanOutlined />} block>
-                  Torna a escanejar
+                <Button icon={<ScanOutlined />} block onClick={onScanAgain}>
+                  {t('scan.scan-again')}
                 </Button>
               </Col>
               <Col span={12}>
-                <Button type="primary" icon={<EuroOutlined />} block onClick={onScan}>
-                  Registra venda
+                <Button type="primary" icon={<EuroOutlined />} block>
+                  {t('scan.register-sale')}
                 </Button>
               </Col>
             </Row>
@@ -38,4 +39,4 @@ const ScannerBookDesktop: React.FC<Props> = ({ book, onScan }: Props) => {
   );
 };
 
-export default ScannerBookDesktop;
+export default withTranslation()(ScannerBookDesktop);

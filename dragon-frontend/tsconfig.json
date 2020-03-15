@@ -17,6 +17,7 @@
     "allowJs": true,
     "jsx": "react",
     "noUnusedLocals": false,
-    "noEmit": true
+    "noEmit": true,
+    "noUnusedParameters": false
   }
 }
