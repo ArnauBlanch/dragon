@@ -1,0 +1,61 @@
+@import '~antd/dist/antd.css';
+
+div {
+  display: block;
+}
+
+body {
+  background-color: rgb(240, 242, 245);
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+video {
+  max-width: 100%;
+}
+
+.logo {
+  text-align: center;
+  line-height: 32px;
+  padding: 15px;
+}
+.logo svg {
+  height: 32px;
+  vertical-align: middle;
+}
+
+.logo-header-mini {
+  float: left;
+  padding-left: 20px;
+}
+
+.logo span {
+  margin-left: 12px;
+  vertical-align: middle;
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.ant-layout {
+  min-height: auto !important;
+}
+div#interactive canvas {
+  display: none;
+}

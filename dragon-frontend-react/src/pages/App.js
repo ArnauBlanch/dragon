@@ -42,7 +42,7 @@ class App extends React.Component {
                             <DesktopHeader currentPath={currentPath} /> 
                         }
                     </Media>
-                    <div style={{ marginTop: 64 }}>
+                    <div style={{ marginTop: 64, height: '100%' }}>
                         {this.props.children}
                     </div>
                     <Footer style={{ textAlign: 'center' }}>

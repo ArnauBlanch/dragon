@@ -10,6 +10,10 @@
     color: #1890ff;
 }
 
+video {
+    max-width: 100%;
+}
+
 .logo {
     text-align: center;
     line-height: 32px;
@@ -35,4 +39,7 @@
 
 .ant-layout {
     min-height: auto !important;
+}
+div#interactive canvas {
+    display: none;
 }
