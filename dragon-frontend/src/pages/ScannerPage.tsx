@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import BarcodeScanner from '../components/scanner/BarcodeScanner';
 import ScannerLoading from '../components/scanner/ScannerLoading';
 import ScannerError from '../components/scanner/ScannerError';
-import ScannedBook from '../containers/ScannedBook';
-import { getBook as getBookAction } from '../actions/books';
+import { getBook as getBookAction, clearBookError as clearBookErrorAction } from '../actions/books';
 import { RootState } from '../reducers';
 import '../styles/scanner.css';
+import BookScannedPage from './BookScannedPage';
 
 const mapStateToProps = (state: RootState) => ({ books: state.books });
-const dispatchProps = { getBook: getBookAction.request };
+const dispatchProps = { getBook: getBookAction.request, clearBookError: clearBookErrorAction };
 
 type Props = ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 type State = { isbn?: number };
@@ -29,6 +29,11 @@ class ScannerPage extends React.Component<Props, State> {
   }
 
   scanAgain() {
+    const { isbn } = this.state;
+    if (isbn) {
+      const { clearBookError } = this.props;
+      clearBookError({ isbn });
+    }
     this.setState({ isbn: undefined });
   }
 
@@ -38,13 +43,18 @@ class ScannerPage extends React.Component<Props, State> {
     const currentBook = isbn ? books[isbn] : undefined;
     return (
       <>
-        {!isbn && <BarcodeScanner onDetected={this.onCodeScanned} />}
+        {!currentBook?.data && (
+          <BarcodeScanner
+            disabled={currentBook?.isFetching || currentBook?.error !== undefined}
+            onDetected={this.onCodeScanned}
+          />
+        )}
         {isbn && currentBook?.isFetching && <ScannerLoading />}
         {isbn && currentBook?.error && (
           <ScannerError onScanAgain={this.scanAgain} error={currentBook.error} />
         )}
         {isbn && currentBook?.data && (
-          <ScannedBook book={currentBook?.data} onScanAgain={this.scanAgain} />
+          <BookScannedPage book={currentBook?.data} onScanAgain={this.scanAgain} />
         )}
       </>
     );

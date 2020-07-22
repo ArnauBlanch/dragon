@@ -41,6 +41,7 @@ let devices: string[] = [];
 export const getDeviceId = async () => {
   devices = await getDevices();
   const deviceId = getPreferredDeviceId();
+  console.log(devices);
   if (deviceId && devices.indexOf(deviceId) !== -1)
     return { id: deviceId, numDevices: devices.length };
   if (devices.length > 0) {
