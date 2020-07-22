@@ -37,3 +37,4 @@ msbuild.wrn
 /Dragon.Serverless.API.IntegrationTests/.runsettings
 /Dragon.Serverless.API.IntegrationTests/.runsettings-api
 dragon-frontend-react/.env
+dragon-frontend/src/tailwind.output.css

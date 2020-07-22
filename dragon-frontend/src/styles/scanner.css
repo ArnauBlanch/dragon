@@ -1,0 +1,84 @@
+.scanner-desktop {
+  max-width: 800px;
+  margin: 0px auto;
+  min-height: 600px;
+}
+
+.scanner-desktop img {
+  max-width: -webkit-fill-available;
+  margin: 32px;
+}
+
+.scanner-mobile {
+  text-align: center;
+  height: -webkit-fill-available;
+  margin-bottom: 80px;
+}
+
+.scanner-mobile img {
+  max-width: -webkit-fill-available;
+  max-height: 300px;
+  margin: 16px;
+}
+
+.scanner-stats {
+  width: -webkit-fill-available;
+  margin-bottom: 32px;
+}
+
+.scanner-buttons-mobile {
+  background-color: white;
+  padding: 16px;
+  position: fixed;
+  bottom: 0px;
+  width: -webkit-fill-available;
+}
+
+video {
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: inherit;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 6px;
+}
+
+button.ant-btn.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
+  width: 48px;
+  height: 48px;
+  margin: 6px;
+}
+
+.camera-button svg {
+  width: 32px;
+  fill: rgba(0, 0, 0, 0.65);
+}
+
+.camera-button svg:hover {
+  fill: #1890ff;
+}
+
+.scanner-stats .ant-statistic-content-value-int {
+  font-size: 30px;
+}
+.scanner-stats .ant-statistic-content-value-decimal {
+  font-size: 20px;
+}
+.scanner-stats .ant-statistic-content-suffix {
+  font-size: 20px;
+}
+
+.modal {
+  transition: opacity 0.25s ease;
+}
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: visible !important;
+}
