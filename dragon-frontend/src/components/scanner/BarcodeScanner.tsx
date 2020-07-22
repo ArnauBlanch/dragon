@@ -37,7 +37,6 @@ class BarcodeScanner extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.sound.play();
     getDeviceId().then(({ id, numDevices }) => {
       this.setState({ canChangeDevice: numDevices > 1 });
       this.createScanner(id);
@@ -78,7 +77,6 @@ class BarcodeScanner extends React.Component<Props, State> {
     this.scanner.addEventListener('processed', this.onCodeDetected);
     this.scanner.start().then(() => {
       this.setState({ initialized: true });
-      console.log('Scanner initialized!');
     });
   }
 

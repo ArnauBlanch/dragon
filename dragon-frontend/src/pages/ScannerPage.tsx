@@ -6,7 +6,7 @@ import ScannerError from '../components/scanner/ScannerError';
 import { getBook as getBookAction, clearBookError as clearBookErrorAction } from '../actions/books';
 import { RootState } from '../reducers';
 import '../styles/scanner.css';
-import BookScannedPage from './BookScannedPage';
+import BookScannedPage from './BookScanned/BookScannedPage';
 
 const mapStateToProps = (state: RootState) => ({ books: state.books });
 const dispatchProps = { getBook: getBookAction.request, clearBookError: clearBookErrorAction };

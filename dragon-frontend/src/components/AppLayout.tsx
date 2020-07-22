@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import AppHeader from '../components/AppHeader/AppHeader';
+import AppHeader from './AppHeader/AppHeader';
 
 type Props = { children: React.ReactElement };
 
