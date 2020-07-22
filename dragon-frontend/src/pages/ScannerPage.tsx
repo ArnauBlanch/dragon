@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import BarcodeScanner from '../components/scanner/BarcodeScanner';
 import ScannerLoading from '../components/scanner/ScannerLoading';
 import ScannerError from '../components/scanner/ScannerError';
 import { getBook as getBookAction, clearBookError as clearBookErrorAction } from '../actions/books';
 import { RootState } from '../reducers';
 import '../styles/scanner.css';
-import BookScannedPage from './BookScanned/BookScannedPage';
 
 const mapStateToProps = (state: RootState) => ({ books: state.books });
 const dispatchProps = { getBook: getBookAction.request, clearBookError: clearBookErrorAction };
@@ -20,6 +20,7 @@ class ScannerPage extends React.Component<Props, State> {
 
     this.onCodeScanned = this.onCodeScanned.bind(this);
     this.scanAgain = this.scanAgain.bind(this);
+    console.log('CONSTRUCTOR');
   }
 
   onCodeScanned(isbn: number) {
@@ -53,9 +54,7 @@ class ScannerPage extends React.Component<Props, State> {
         {isbn && currentBook?.error && (
           <ScannerError onScanAgain={this.scanAgain} error={currentBook.error} />
         )}
-        {isbn && currentBook?.data && (
-          <BookScannedPage book={currentBook?.data} onScanAgain={this.scanAgain} />
-        )}
+        {isbn && currentBook?.data && <Redirect push exact to={`/scan/${isbn}`} />}
       </>
     );
   }

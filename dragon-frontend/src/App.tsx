@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 
 const AppLayout = lazy(() => import('./components/AppLayout'));
 const ScannerPage = lazy(() => import('./pages/ScannerPage'));
+const BookScannedPage = lazy(() => import('./pages/BookScanned/BookScannedPage'));
 
 const store = createStore();
 
@@ -18,10 +19,11 @@ function App(): React.ReactElement {
         <Switch>
           <Route name="login" path="/login" component={LoginPage} />
           <PrivateRoute>
-            <Suspense fallback={<b>Loading...</b>}>
+            <Suspense fallback={<div />}>
               <AppLayout>
                 <>
-                  <Route name="scan" path="/scan" component={ScannerPage} />
+                  <Route name="scan" path="/scan" exact component={ScannerPage} />
+                  <Route name="scan-success" path="/scan/:isbn" component={BookScannedPage} />
                 </>
               </AppLayout>
             </Suspense>

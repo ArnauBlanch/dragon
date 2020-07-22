@@ -73,5 +73,8 @@ export default {
     'scan.search': 'Search',
     'scan.sales-history': 'Sales history',
     'scan.not-found-error': 'Book not found',
+    'scan.no-sales': 'No copies of this book have been sold yet',
+    'scan.undo-sale': 'Undo',
+    'scan.sold-out': 'Sold out',
   },
 };

@@ -23,6 +23,8 @@ namespace Dragon.Serverless.API
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+
+
             builder.Services.AddSingleton<IBookMapper, BookMapper>();
             builder.Services.AddSingleton<ISaleMapper, SaleMapper>();
             builder.Services.AddSingleton<IShopMapper, ShopMapper>();

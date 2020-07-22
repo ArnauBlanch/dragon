@@ -116,16 +116,16 @@ class BarcodeScanner extends React.Component<Props, State> {
                   <button
                     type="button"
                     onClick={this.toggleTorch}
-                    className="relative z-50 flex items-center p-3 m-3 mr-0 md:m-6 md:-mr-2 self-right bg-red-500 text-white border-2 border-white rounded-full focus:outline-none active:bg-red-400 md:hover:bg-red-400"
+                    className="relative z-50 flex items-center p-3 m-3 mr-0 md:m-6 md:-mr-2 self-right bg-red-500 text-white border-2 border-white rounded-full shadow-xl focus:outline-none active:bg-red-400 md:hover:bg-red-400"
                   >
-                    <FlashlightIcon className="block t-2 h-6 w-6 fill-current" />
+                    <FlashlightIcon className="block t-2 h-6 w-6 fill-current shadow-xl" />
                   </button>
                 )}
                 {canChangeDevice && (
                   <button
                     type="button"
                     onClick={this.changeDevice}
-                    className="relative z-50 flex items-center p-3 m-3 mr-0 md:m-6 md:-mr-2 self-right bg-red-500 text-white border-2 border-white rounded-full focus:outline-none active:bg-red-400 md:hover:bg-red-400"
+                    className="relative z-50 flex items-center p-3 m-3 mr-0 md:m-6 md:-mr-2 self-right bg-red-500 text-white border-2 border-white rounded-full shadow-xl focus:outline-none active:bg-red-400 md:hover:bg-red-400"
                   >
                     <SwitchIcon className="block t-2 h-6 w-6 fill-current" />
                   </button>
@@ -133,7 +133,7 @@ class BarcodeScanner extends React.Component<Props, State> {
                 <button
                   type="button"
                   onClick={this.toggleModal}
-                  className="relative z-50 flex items-center p-3 m-3 md:m-6 self-right bg-red-500 text-white border-2 border-white rounded-full focus:outline-none active:bg-red-400 md:hover:bg-red-400"
+                  className="relative z-50 flex items-center p-3 m-3 md:m-6 self-right bg-red-500 text-white border-2 border-white rounded-full shadow-xl focus:outline-none active:bg-red-400 md:hover:bg-red-400"
                 >
                   <KeyboardIcon className="block t-2 h-6 w-6 fill-current" />
                 </button>

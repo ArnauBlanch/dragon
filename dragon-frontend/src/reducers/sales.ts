@@ -1,6 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { ErrorType } from '../models/enums';
-import { SalesActions, getBookSales } from '../actions/sales';
+import { SalesActions, getBookSales, sellBook, unsellBook } from '../actions/sales';
 import { Sale } from '../models/sale';
 
 export type SalesState = {
@@ -8,6 +8,8 @@ export type SalesState = {
     isFetching: boolean;
     data?: Sale[];
     error?: ErrorType;
+    isSelling?: boolean;
+    sellError?: ErrorType;
   };
 };
 
@@ -25,6 +27,38 @@ const reducer = createReducer<SalesState, SalesActions>(initialState)
   .handleAction(getBookSales.failure, (state, action) => ({
     ...state,
     [action.payload.isbn]: { isFetching: false, data: undefined, error: action.payload.error },
+  }))
+  .handleAction(sellBook.request, (state, action) => ({
+    ...state,
+    [action.payload.isbn]: { ...state[action.payload.isbn], isSelling: true, sellError: undefined },
+  }))
+  .handleAction(sellBook.success, (state, action) => ({
+    ...state,
+    [action.payload.isbn]: {
+      ...state[action.payload.isbn],
+      isSelling: false,
+      sellError: undefined,
+    },
+  }))
+  .handleAction(sellBook.failure, (state, action) => ({
+    ...state,
+    [action.payload.isbn]: {
+      ...state[action.payload.isbn],
+      isSelling: false,
+      sellError: action.payload.error,
+    },
+  }))
+  .handleAction(unsellBook.request, (state, action) => ({
+    ...state,
+    [action.payload.isbn]: { ...state[action.payload.isbn], isFetching: true },
+  }))
+  .handleAction(unsellBook.failure, (state, action) => ({
+    ...state,
+    [action.payload.isbn]: {
+      ...state[action.payload.isbn],
+      isFetching: false,
+      error: action.payload.error,
+    },
   }));
 
 export default reducer;
