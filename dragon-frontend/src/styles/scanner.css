@@ -39,7 +39,6 @@ video {
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  margin-top: 64px;
   min-width: 100vw;
   min-height: 100vh;
   max-width: inherit;
@@ -74,4 +73,12 @@ button.ant-btn.ant-btn-circle.ant-btn-lg.ant-btn-icon-only {
 }
 .scanner-stats .ant-statistic-content-suffix {
   font-size: 20px;
+}
+
+.modal {
+  transition: opacity 0.25s ease;
+}
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: visible !important;
 }

@@ -3,15 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from 'antd';
 import caES from 'antd/es/locale/ca_ES';
-import './styles/App.css';
 import { Locale } from 'antd/lib/locale-provider';
 import { ConnectedRouter } from 'connected-react-router';
 import createStore, { history } from './store';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/Login/LoginPage';
 import ScannerPage from './pages/ScannerPage';
-import ScannerSuccessPage from './pages/ScannerSuccessPage';
 import AppLayout from './pages/AppLayout';
 import PrivateRoute from './components/PrivateRoute';
+import ExamplePage from './pages/ExamplePage';
 
 const languages: { [lng: string]: Locale } = {
   ca: caES,
@@ -33,7 +32,7 @@ function App(): React.ReactElement {
               <AppLayout>
                 <>
                   <Route name="scan" path="/scan" component={ScannerPage} />
-                  <Route name="scan-success" path="/scan-success" component={ScannerSuccessPage} />
+                  <Route name="example" path="/example" component={ExamplePage} />
                 </>
               </AppLayout>
             </PrivateRoute>

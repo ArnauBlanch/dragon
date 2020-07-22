@@ -1,6 +1,6 @@
 import { createReducer } from 'typesafe-actions';
 import { ErrorType } from '../models/enums';
-import { BookActions, getBook } from '../actions/books';
+import { BookActions, getBook, clearBookError } from '../actions/books';
 import { Book } from '../models/book';
 
 export type BooksState = {
@@ -25,6 +25,10 @@ const reducer = createReducer<BooksState, BookActions>(initialState)
   .handleAction(getBook.failure, (state, action) => ({
     ...state,
     [action.payload.isbn]: { isFetching: false, data: undefined, error: action.payload.error },
-  }));
+  }))
+  .handleAction(clearBookError, (state, action) => {
+    if (state[action.payload.isbn]) return state;
+    return { ...state, [action.payload.isbn]: { ...state[action.payload.isbn], error: undefined } };
+  });
 
 export default reducer;
