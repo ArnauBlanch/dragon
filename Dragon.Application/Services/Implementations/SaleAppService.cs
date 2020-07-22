@@ -42,7 +42,7 @@ namespace Dragon.Application.Services.Implementations
             return inventoryResult;
         }
 
-        public async Task<OperationResult> DeleteAsync(string shop, long isbn, string date)
+        public async Task<OperationResult> DeleteAsync(string shop, long isbn, DateTime date)
         {
             var result = await this.inventoryRepository.UnsellByISBNAsync(shop, isbn);
 

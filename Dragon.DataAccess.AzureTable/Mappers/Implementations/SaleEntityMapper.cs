@@ -36,7 +36,7 @@ namespace Dragon.DataAccess.AzureTable.Mappers.Implementations
             var result = new SaleEntity
             {
                 PartitionKey = $"{shop}_{source.ISBN}",
-                RowKey = source.Date.ToString("o"),
+                RowKey = source.Date.ToString("s"),
                 Seller = source.Seller
             };
 

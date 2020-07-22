@@ -6,6 +6,13 @@ import { ErrorType } from '../models/enums';
 import { getApiKey } from '../helpers/localStorage';
 import { Sale } from '../models/sale';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapSale = (source: any): Sale => ({
+  isbn: source.isbn,
+  date: new Date(source.date),
+  seller: source.seller,
+});
+
 export default function* getBookSalesSaga(action: ActionType<typeof getBookSales.request>) {
   const { isbn } = action.payload;
 
@@ -26,7 +33,7 @@ export default function* getBookSalesSaga(action: ActionType<typeof getBookSales
 
     if (response.ok) {
       const data = (yield response.json()) as Sale[];
-      yield put(getBookSales.success({ isbn, data }));
+      yield put(getBookSales.success({ isbn, data: data.map((x) => mapSale(x)) }));
     } else if (response.status === 401) {
       yield put(getBookSales.failure({ isbn, error: ErrorType.Unauthorized }));
       yield put(push('/login'));

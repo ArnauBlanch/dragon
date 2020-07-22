@@ -73,5 +73,8 @@ export default {
     'scan.search': 'Cerca',
     'scan.sales-history': 'Historial de vendes',
     'scan.not-found-error': "No s'ha trobat el llibre",
+    'scan.no-sales': "Encara no s'ha venut cap exemplar d'aquest llibre",
+    'scan.undo-sale': 'Desfés',
+    'scan.sold-out': 'Esgotat',
   },
 };

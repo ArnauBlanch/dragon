@@ -53,10 +53,10 @@ namespace Dragon.DataAccess.AzureTable.Repository.Implementations
 
         }
 
-        public async Task<bool> DeleteAsync(string shop, long isbn, string date)
+        public async Task<bool> DeleteAsync(string shop, long isbn, DateTime date)
         {
             var partitionKey = $"{shop}_{isbn}";
-            var retrieved = await this.RetrieveEntityAsync(partitionKey, date);
+            var retrieved = await this.RetrieveEntityAsync(partitionKey, date.ToString("s"));
             if (retrieved == null)
                 return false;
 

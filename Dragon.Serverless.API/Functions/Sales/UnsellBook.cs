@@ -23,11 +23,11 @@ namespace Dragon.Serverless.API.Functions.Sales
             [HttpTrigger(AuthorizationLevel.Function, "delete", Route = null)] HttpRequest req)
         {
             if (!long.TryParse(req.Query["isbn"], out long isbn)
-                || string.IsNullOrWhiteSpace(req.Query["date"])
-                || string.IsNullOrWhiteSpace(req.Query["shop"]))
+                || string.IsNullOrWhiteSpace(req.Query["shop"])
+                || !DateTime.TryParse(req.Query["date"], out DateTime date))
                 return new BadRequestResult();
 
-            var result = await this.saleAppService.DeleteAsync(req.Query["shop"], isbn, req.Query["date"]);
+            var result = await this.saleAppService.DeleteAsync(req.Query["shop"], isbn, date.ToUniversalTime());
 
             switch (result)
             {
