@@ -35,13 +35,14 @@ class SalesHistory extends React.Component<Props> {
         <div className="flex flex-wrap">
           {(isFetching || error !== undefined || (data !== undefined && data.length === 0)) && (
             <div className="flex items-center justify-center h-24 w-full font-normal text-gray-600 text-sm">
-              {isFetching && data === undefined && <Spinner className="w-12 text-red-300" />}
+              {isFetching && <Spinner className="w-12 text-red-300" />}
               {data && data.length === 0 && t('scan.no-sales')}
               {error !== undefined && t('scan.there-was-a-problem')}
             </div>
           )}
 
           {!error &&
+            !isFetching &&
             data?.map((x) => (
               <div
                 key={x.date.toISOString()}

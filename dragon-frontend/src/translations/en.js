@@ -76,5 +76,6 @@ export default {
     'scan.no-sales': 'No copies of this book have been sold yet',
     'scan.undo-sale': 'Undo',
     'scan.sold-out': 'Sold out',
+    'scan.sell-done': 'Sold!',
   },
 };

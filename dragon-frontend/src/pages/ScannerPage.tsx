@@ -20,7 +20,6 @@ class ScannerPage extends React.Component<Props, State> {
 
     this.onCodeScanned = this.onCodeScanned.bind(this);
     this.scanAgain = this.scanAgain.bind(this);
-    console.log('CONSTRUCTOR');
   }
 
   onCodeScanned(isbn: number) {
