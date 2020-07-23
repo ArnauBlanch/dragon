@@ -12,14 +12,27 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: RootState, props: OwnProps) =>
-  ({ book: state.books[props.isbn]?.data, sales: state.sales[props.isbn] } || {});
+  ({
+    book: state.books[props.isbn]?.data,
+    bookSold: state.books[props.isbn]?.sold,
+    sales: state.sales[props.isbn],
+  } || {});
 const dispatchProps = { sellBook: sellBookAction.request, scanAgain: () => push('/scan') };
 
 type Props = OwnProps & WithTranslation & ReturnType<typeof mapStateToProps> & typeof dispatchProps;
 
-const BookData: React.FC<Props> = ({ isbn, book, sales, scanAgain, sellBook, t }: Props) => {
+const BookData: React.FC<Props> = ({
+  isbn,
+  book,
+  bookSold,
+  sales,
+  scanAgain,
+  sellBook,
+  t,
+}: Props) => {
   if (book === undefined) return <Redirect to="/scan" />;
 
+  const enableSale = book?.availableCopies > 0 && !sales?.isSelling && !bookSold;
   return (
     <>
       <div className="w-full sm:w-1/3">
@@ -58,13 +71,14 @@ const BookData: React.FC<Props> = ({ isbn, book, sales, scanAgain, sellBook, t }
           </button>
           <button
             type="button"
-            disabled={book?.availableCopies === 0 || sales?.isSelling}
+            disabled={!enableSale}
             onClick={() => sellBook({ isbn })}
-            className="bg-red-500 hover:bg-red-400 focus:outline-none focus:shadow-outline focus:border-red-500 text-white font-semibold p-2 rounded-lg align-middle inline-flex items-center justify-center"
+            className="bg-red-500 hover:bg-red-400 disabled:bg-red-500 focus:outline-none focus:shadow-outline focus:border-red-500 text-white font-semibold p-2 rounded-lg align-middle inline-flex items-center justify-center"
           >
-            {book?.availableCopies === 0 && t('scan.sold-out')}
-            {sales?.isSelling && <Spinner className="w-3" />}
-            {!(book?.availableCopies === 0 || sales?.isSelling) && t('scan.record-sale')}
+            {!bookSold && book?.availableCopies === 0 && t('scan.sold-out')}
+            {sales?.isSelling && <Spinner className="w-10" />}
+            {enableSale && t('scan.record-sale')}
+            {bookSold && t('scan.sell-done')}
           </button>
         </div>
       </div>

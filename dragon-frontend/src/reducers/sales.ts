@@ -9,6 +9,7 @@ export type SalesState = {
     data?: Sale[];
     error?: ErrorType;
     isSelling?: boolean;
+    sold?: boolean;
     sellError?: ErrorType;
   };
 };
